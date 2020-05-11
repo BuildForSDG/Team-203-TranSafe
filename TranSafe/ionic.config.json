@@ -1,0 +1,7 @@
+{
+  "name": "TranSafe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
