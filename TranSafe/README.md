@@ -27,7 +27,7 @@ npm install
 >_tip_: **npm i** is shorthand for **npm install**
 
 
-### Initializing Firebase
+### Initializing Firebase for ionic web app
 Copy the firebase credentials from the firebase platform and past the values in the environment.ts files.
 You can store each secret keys in the environment variable in windows or a use a profile in macos and then reference it in the envirnoment.ts file in the project. You can check it out here ['How to Set Environment Variables in windows 10'](https://www.onmsft.com/how-to/how-to-set-an-environment-variable-in-windows-10)
 
@@ -53,6 +53,9 @@ export const environment = {
 }
 
 ```
+### Initializing Firebase for capacitor android app
+Go to the firebase project and select the android app. Go to the settings and download the google-services.json file and paste in the android/app folder
+If you are interested in knowing more check this out ['Adding firebase credentials for android'](https://firebase.google.com/docs/android/setup)
 
 
 ### Installing android studio
