@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "team-203-transafe": {
+      "hosting": {
+        "app": [
+          "team-203-transafe"
+        ]
+      }
+    }
+  }
+}
