@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TranSafe</string>
+    <string name="title_activity_main">TranSafe</string>
+    <string name="package_name">com.example.buildforsdg.team203.transafe</string>
+    <string name="custom_url_scheme">com.example.buildforsdg.team203.transafe</string>
+</resources>
