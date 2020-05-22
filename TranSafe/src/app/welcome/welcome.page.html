@@ -1,0 +1,48 @@
+<ion-slides  class="slider"  pager="true" [options]="slideOpts">
+
+  <ion-slide class="transbox"
+  style=" background-image: url(../assets/sliders/welcome_page1.png);
+          background-repeat:no-repeat;
+          background-size:cover;">
+
+          <div style= "margin-top:40%">
+
+            <li><h1>Welcome to</h1></li>
+            <li style="margin-left: 20px;"><h1 style="font-weight: 900;">TranSafe</h1></li>
+            <li><h5>The best way to navigate your world  with safety at the core. Let's get started!</h5> </li>
+            <li style="margin: 40px;"><ion-button class="button-near-round"  (click)="tosignup()"  expand="block"><ion-icon name="call" class="signup-icon"></ion-icon> <h4 style="padding: 10px;">Sign Up</h4></ion-button></li>
+          </div>
+  </ion-slide>
+  <ion-slide>
+
+      <div >
+      <ion-button style="position:absolute; top:0; right:0;" fill="clear" (click)="tosignup()"  color="primary">Skip</ion-button>
+
+      <ion-img class="icon-svgs" src= "../assets/icon/speed 1.svg"></ion-img>
+      <h1 style="color: rgb(65, 65, 65);">Speed Conscious</h1>
+      <h4 style="color: rgb(65, 65, 65);">When it comes to speed, we got you covered. Monitor your speed and get notified when you exceed your speed limit </h4>
+      </div>
+  </ion-slide>
+  <ion-slide>
+    <div >
+      <ion-button style="position:absolute; top:0; right:0;" fill="clear" (click)="tosignup()"  color="primary">Skip</ion-button>
+
+      <ion-img class="icon-svgs" src= "../assets/icon/risk 1.svg"></ion-img>
+      <h1 style="color: rgb(65, 65, 65);">Monitoring</h1>
+      <h4 style="color: rgb(65, 65, 65);">Get to know who is overseeding, rate, and share records to others. Ensure regulations when it comes to who speeding with passangers and driver alerts </h4>
+    </div>
+  </ion-slide>
+  <ion-slide>
+    <div>
+      <ion-button style="position:absolute; top:0; right:0;" fill="clear"  (click)="tosignup()" color="primary">Skip</ion-button>
+
+      <ion-img class="icon-svgs" src= "../assets/icon/shield 1.svg"></ion-img>
+      <h1 style="color: rgb(65, 65, 65);">Safety</h1>
+      <h4 style="color: rgb(65, 65, 65);">Get instant safety and risk metrics before deciding to board a taxi, or a bus. Ensures safety and a sense of security when you board a vehicle </h4>
+
+    </div>
+
+  </ion-slide>
+
+
+</ion-slides>

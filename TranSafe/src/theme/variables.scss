@@ -2,9 +2,33 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+
+@font-face {
+  font-family: 'robo-medium';
+  src: url('../assets/fonts/Roboto-Light.ttf');
+}
+
+
+
 :root {
+
+  /** Custon Fonts **/
+
+  --ion-font-family: "robo-medium";
+
+
+
+
+
+
+
+
+
   /** primary **/
-  --ion-color-primary: #3880ff;
+
+
+  --ion-color-primary: #8A56AC;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -225,4 +249,5 @@
 
     --ion-tab-bar-background: #1f1f1f;
   }
+
 }
