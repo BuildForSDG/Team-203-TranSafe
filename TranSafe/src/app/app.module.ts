@@ -17,6 +17,21 @@ import { AngularFireAnalyticsModule} from '@angular/fire/analytics';
 import { environment } from 'src/environments/environment';
 
 
+
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.PhoneAuthProvider.PROVIDER_ID
+  ],
+
+  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+};
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +43,7 @@ import { environment } from 'src/environments/environment';
            AngularFirestoreModule,
            AngularFireStorageModule,
            AngularFireAnalyticsModule,
+           FirebaseUIModule.forRoot(firebaseUiAuthConfig)
         ],
   providers: [
     StatusBar,

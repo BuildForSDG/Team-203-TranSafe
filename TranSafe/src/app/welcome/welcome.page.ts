@@ -27,8 +27,8 @@ export class WelcomePage implements OnInit {
 
 
   async tosignup() {
-
-    await (await Storage.set({ key: 'welcomeCompleted', value: 'welcomed' }));
+    console.log('hello');
+    (await Storage.set({ key: 'welcomeCompleted', value: 'welcomed' }));
 
   }
 

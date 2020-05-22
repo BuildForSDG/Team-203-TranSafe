@@ -29,9 +29,13 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "cordova-plugin-firebase-authentication": "^3.3.0",
+    "cordova-support-android-plugin": "^1.0.2",
+    "cordova-support-google-services": "^1.4.0",
     "core-js": "^2.5.4",
     "dotenv": "^8.2.0",
-    "firebase": ">= 5.5.7 <8",
+    "firebase": "^7.14.5",
+    "firebaseui": "^4.5.0",
+    "firebaseui-angular": "^4.0.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -63,7 +67,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "^3.9.3"
   },
   "description": "An Ionic project"
 }
