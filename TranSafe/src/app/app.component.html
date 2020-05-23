@@ -1,3 +1,43 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="main-menu" contentId="main">
+    <ion-content color="medium tint">
+      <div class="menu-container-bg">
+      <div class="header-content">
+        <img class="user-avatar" src="../assets/images/avatar.jpg" alt="user profile image" />
+        <ion-label>
+          <h1>Ann</h1>
+          <p>@ann009</p>
+        </ion-label>
+      </div>
+      <div class="home-item">
+        <ion-button padding fill="clear" color="light">
+          <ion-icon padding slot="start" name="home"></ion-icon>
+           Home
+        </ion-button>
+      </div>
+      <div class="achieve-button">
+        <ion-button padding fill="clear" color="light">
+          <ion-icon padding slot="start" name="book"></ion-icon>
+           Achievement
+        </ion-button>
+      </div>
+      <div class="settings-button">
+        <ion-button padding fill="clear" color="light">
+          <ion-icon padding slot="start" name="cog-outline"></ion-icon>
+           Settings
+        </ion-button>
+      </div>
+      <div class="about-button">
+        <ion-button padding fill="clear" color="light">
+           <p>About Us</p>
+        </ion-button>
+      </div>
+      <div class="logout-button">
+        <ion-button padding fill="clear" color="light">
+        <p>Log Out</p>
+        </ion-button></div>
+    </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
