@@ -9,6 +9,11 @@
   src: url('../assets/fonts/Roboto-Light.ttf');
 }
 
+@font-face {
+  font-family: 'robo-bold';
+  src: url('../assets/fonts/Roboto-Bold.ttf');
+}
+
 
 
 :root {
@@ -16,6 +21,7 @@
   /** Custon Fonts **/
 
   --ion-font-family: "robo-medium";
+
 
 
 
