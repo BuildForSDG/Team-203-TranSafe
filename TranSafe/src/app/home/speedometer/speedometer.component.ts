@@ -14,13 +14,13 @@ export class SpeedometerComponent implements OnInit {
 
   ngOnInit() {this.updateSpeedLimit(); this.updateCurrentSpeed()}
 
-// Every 30 degree is equivalent to 20km/s
+// Every 30 degree is equivalent to 20km/h
   updateCurrentSpeed() {
-    this.currentSpeed.nativeElement.style.transform = 'rotate(' + 0 +'deg)';
+    this.currentSpeed.nativeElement.style.transform = 'rotate(' + 120 +'deg)';
   }
 //update spped limit
   updateSpeedLimit() {
-    this.speedLimit.nativeElement.style.transform = 'rotate(120deg)';
+    this.speedLimit.nativeElement.style.transform = 'rotate(80deg)';
   }
 
   // when over speeding

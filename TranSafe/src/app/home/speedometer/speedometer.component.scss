@@ -38,25 +38,26 @@
 .speed-value {
   margin-top: 48px;
   font-size: 2em;
-  color: rgb(48, 48, 48);
+  color: red;
 }
 .current-speed {
   width: 5px;
   height: 35%;
   background: rgb(48, 48, 48);
   transform-origin: 50% 100%;
+  border-radius: 100% 100% 0 0;
   position: absolute;
-  top: 10%;
-  left: 49%;
+  top: 18%;
+  left: 51%;
 }
 
 .speed-limit {
   width: 3px;
   height: 35%;
-  background: rgb(223, 12, 100);
+  background: blue;
   transform-origin: 50% 100%;
   position: absolute;
-  top: 18%;
+  top: 11%;
   left: calc(50% -1px);
   border-radius: 100% 100% 0 0;
 }
