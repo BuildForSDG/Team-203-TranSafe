@@ -21,8 +21,10 @@ export class WelcomeGuard implements CanActivate {
       const isComplete = await (await Storage.get({ key: 'welcomeCompleted' })).value;
 
       console.log(isComplete);
-      if (isComplete) {
-        this.router.navigateByUrl('signup');
+      if (!isComplete) {
+        this.router.navigateByUrl('welcome');
+      } else {
+        this.router.navigateByUrl('homenav');
       }
 
       return !!!isComplete;

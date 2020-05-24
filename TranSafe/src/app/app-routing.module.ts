@@ -8,22 +8,22 @@ import { IonicModule } from '@ionic/angular';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule),
-
+    loadChildren: () => import('./homenav/homenav.module').then( m => m.HomenavPageModule),
+    canActivate: [WelcomeGuard, HomesignedinGuard]
   },
   {
     path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule),
-    canActivate: [WelcomeGuard]
+
   },
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule),
-    canActivate: [HomesignedinGuard]
   },
   {
     path: 'homenav',
-    loadChildren: () => import('./homenav/homenav.module').then( m => m.HomenavPageModule)
+    loadChildren: () => import('./homenav/homenav.module').then( m => m.HomenavPageModule),
+
   },
 ];
 

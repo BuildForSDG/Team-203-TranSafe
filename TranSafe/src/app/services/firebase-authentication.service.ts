@@ -4,9 +4,11 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import {  Router } from '@angular/router';
 
+import {User} from 'firebase';
+
 import { Plugins } from '@capacitor/core';
 import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
-import { User } from '../signup/signup.page';
+
 
 const { Storage } = Plugins;
 
@@ -20,24 +22,30 @@ export class FirebaseAuthenticationService {
 
 
   listenToSignIn() {
-    return this.auth0.authState.subscribe(this.firebaseAuthSuccessListener);
+    return this.auth0.authState.subscribe((value: User) => {
+      if (value) {
+
+
+        console.log(value.uid);
+        console.log(value.phoneNumber);
+        this.storeSignUp();
+        this.setUserData(value.uid, value.phoneNumber).then(() => {
+          this.router.navigateByUrl('homenav');
+        });
+    }
+  });
   }
 
 
-  async firebaseAuthSuccessListener(user) {
-
-    const mUser = user as User;
-    console.log(mUser.uid);
+  async storeSignUp() {
     (await Storage.set({ key: 'signedIn', value: 'userSignedIn' }));
-    this.setUserData(mUser.uid, mUser.phone);
-    this.router.navigateByUrl('homenav');
-
   }
+
+
 
 
   setUserData(useruid, phonenumber) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${useruid}`);
-
     const userData = {
       uid: useruid,
       phoneNumber: phonenumber,

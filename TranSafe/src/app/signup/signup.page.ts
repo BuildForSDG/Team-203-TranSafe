@@ -36,9 +36,16 @@ export class SignupPage implements OnInit {
       phone: event.authResult.user.phoneNumber.toString()
     };
 
-    this.authservice.firebaseAuthSuccessListener(userdata);
-    this.authservice.listenToSignIn().unsubscribe();
+
+
   }
 
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnDestroy(): void {
+
+
+    this.authservice.listenToSignIn().unsubscribe();
+
+  }
 
 }
