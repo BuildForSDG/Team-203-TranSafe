@@ -14,11 +14,12 @@ import { AngularFirestoreModule, FirestoreSettingsToken  } from '@angular/fire/f
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAnalyticsModule} from '@angular/fire/analytics';
-import { environment } from 'src/environments/environment';
 import {RouterModule} from '@angular/router';
 
 
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -45,7 +46,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
            AngularFirestoreModule,
            AngularFireStorageModule,
            AngularFireAnalyticsModule,
-           FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+           FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
         ],
   providers: [
     StatusBar,
