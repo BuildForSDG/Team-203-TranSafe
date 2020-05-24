@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 const { Storage } = Plugins;
 
@@ -15,7 +16,8 @@ export class WelcomePage implements OnInit {
     speed: 400
   };
 
-  constructor() { }
+  constructor( private router: Router) { }
+
 
 
 
@@ -27,9 +29,9 @@ export class WelcomePage implements OnInit {
 
 
   async tosignup() {
-    console.log('hello');
-    (await Storage.set({ key: 'welcomeCompleted', value: 'welcomed' }));
 
+    (await Storage.set({ key: 'welcomeCompleted', value: 'welcomed' }));
+    this.router.navigateByUrl('signup');
   }
 
 }

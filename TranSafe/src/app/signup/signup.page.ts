@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseAuthenticationService } from '../services/firebase-authentication.service';
+import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
+
+export interface User {
+  uid: string;
+  phone: string;
+}
 
 
 
@@ -9,17 +15,28 @@ import { FirebaseAuthenticationService } from '../services/firebase-authenticati
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
+
+
+
+
+
 export class SignupPage implements OnInit {
 
   constructor(private authservice: FirebaseAuthenticationService) { }
 
   ngOnInit() {
 
-    this.authservice.listenToSignIn();
+     this.authservice.listenToSignIn();
   }
 
-  authsuccesslistner(event) {
-    this.authservice.firebaseAuthSuccessListener(event);
+  authsuccesslistner(event: FirebaseUISignInSuccessWithAuthResult) {
+
+    const userdata: User = {
+      uid:  event.authResult.user.uid.toString(),
+      phone: event.authResult.user.phoneNumber.toString()
+    };
+
+    this.authservice.firebaseAuthSuccessListener(userdata);
     this.authservice.listenToSignIn().unsubscribe();
   }
 
