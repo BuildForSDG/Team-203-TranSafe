@@ -1,0 +1,40 @@
+.menu-container-bg {
+  background: #5f4491;;
+  height: 100%;
+  width: 100%;
+  border-radius: 0 80px 80px 0;
+  padding-left: 8px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 0 20px 0 20px;
+  margin-bottom: 16px;
+}
+
+.header-content {
+  padding: 32px;
+
+  h1 {
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 12px;
+    font-weight: lighter;
+    color: #aaa4ac;
+  }
+}
+
+ion-button {
+  text-transform: capitalize;
+}
+
+.about-button, .logout-button {
+  margin-top: 64px;
+  font-weight: lighter;
+  p {
+    color: #aaa4ac
+  }
+}
