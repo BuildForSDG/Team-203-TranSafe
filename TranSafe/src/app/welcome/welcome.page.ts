@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
+
+import { IonSlides } from '@ionic/angular';
 
 const { Storage } = Plugins;
 
@@ -10,6 +12,9 @@ const { Storage } = Plugins;
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
+
+  @ViewChild(IonSlides)
+  slides: IonSlides;
 
   slideOpts = {
     initialSlide: 0,
@@ -32,6 +37,11 @@ export class WelcomePage implements OnInit {
 
     (await Storage.set({ key: 'welcomeCompleted', value: 'welcomed' }));
     this.router.navigateByUrl('signup');
+  }
+
+
+  getStarted() {
+    this.slides.slideNext();
   }
 
 }

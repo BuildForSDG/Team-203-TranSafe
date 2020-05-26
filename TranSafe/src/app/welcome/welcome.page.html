@@ -1,17 +1,14 @@
 <ion-slides  class="slider"  pager="true" [options]="slideOpts">
 
-  <ion-slide class="transbox"
-  style=" background-image: url(../assets/sliders/welcome_bscr.jpg);
-          background-repeat:no-repeat;
-          background-size:cover;
-          ">
+  <ion-slide class="transbox">
 
           <div style= "margin-top:30%">
-
+            <ion-button style="position:absolute; top:0; right:0;" fill="clear" (click)="getStarted()"  color="light">Get Started</ion-button>
+            <li><ion-img style="width: auto; height:100px" src= "../assets/icon/car.svg"></ion-img></li>
             <li><h1>Welcome to</h1></li>
             <li style="margin-left: 20px;"><h1 style="font-weight: 900;">TranSafe</h1></li>
             <li><h5>The best way to navigate your world  with safety at the core. Let's get started!</h5> </li>
-            <li style="margin: 40px;"><ion-button class="button-near-round"  (click)="tosignup()"  expand="block"><h4 style="padding: 10px;">CONTINUE</h4></ion-button></li>
+            <li style="margin: 40px;"><ion-button class="button-near-round" color="light"  style="color:#5F4591" (click)="tosignup()"  expand="block"><h4 style="padding: 10px;">CONTINUE</h4></ion-button></li>
           </div>
   </ion-slide>
   <ion-slide>
