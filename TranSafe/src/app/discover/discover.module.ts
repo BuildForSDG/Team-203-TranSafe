@@ -8,6 +8,7 @@ import { DiscoverPageRoutingModule } from './discover-routing.module';
 
 import { DiscoverPage } from './discover.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

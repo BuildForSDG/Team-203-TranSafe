@@ -12,7 +12,7 @@ export class HomenavPage implements OnInit {
 
   ngOnInit() {
 
-    this.router.navigateByUrl('homenav/home');
+    // this.router.navigateByUrl('homenav/home');
   }
 
 }
