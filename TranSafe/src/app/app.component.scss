@@ -1,5 +1,5 @@
 .menu-container-bg {
-  background: #8A56AC;
+  background: #8a56ac;
   height: 100%;
   width: 100%;
   border-radius: 0 80px 80px 0;
@@ -20,6 +20,7 @@
     margin-bottom: 8px;
     font-weight: 500;
   }
+
   p {
     font-size: 12px;
     font-weight: lighter;
@@ -31,10 +32,11 @@ ion-button {
   text-transform: capitalize;
 }
 
-.about-button, .logout-button {
+.about-button,
+.logout-button {
   margin-top: 64px;
   font-weight: lighter;
   p {
-    color: #aaa4ac
+    color: #aaa4ac;
   }
 }
