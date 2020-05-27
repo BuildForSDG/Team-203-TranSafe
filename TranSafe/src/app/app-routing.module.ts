@@ -24,7 +24,11 @@ const routes: Routes = [
     path: 'homenav',
     loadChildren: () => import('./homenav/homenav.module').then( m => m.HomenavPageModule),
 
+  },  {
+    path: 'achievement',
+    loadChildren: () => import('./achievement/achievement.module').then( m => m.AchievementPageModule)
   },
+
 ];
 
 @NgModule({
