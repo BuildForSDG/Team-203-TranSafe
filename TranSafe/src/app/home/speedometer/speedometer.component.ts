@@ -15,7 +15,7 @@ export class SpeedometerComponent implements OnInit {
 
 // Every 30 degree is equivalent to 20km/h
   updateCurrentSpeed() {
-    this.currentSpeed.nativeElement.style.transform = 'rotate(' + 240 +'deg)';
+    this.currentSpeed.nativeElement.style.transform = 'rotate(' + 340 +'deg)';
   }
 //up
 
