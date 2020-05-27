@@ -1,7 +1,7 @@
 .speedometer-card {
 
-  width: 100%;
-  height: 40vh;
+  width: auto;
+  height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,14 +11,14 @@
 
 .speedometer {
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 180px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: white;
   border-radius: 50%;
-  border: 20px solid #5F4591;
+  border: 15px solid #5F4591;
 }
 
 .speedometer::before {
