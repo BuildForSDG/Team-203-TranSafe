@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit, ViewChild  } from '@angular/core';
 
 
 
@@ -9,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscoverPage implements OnInit {
 
-  constructor() { }
+
+
+
+  constructor() {
+
+  }
+
+
+
+
 
   ngOnInit() {
+
+
   }
+
+
+
 
 }

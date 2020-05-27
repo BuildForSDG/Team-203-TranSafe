@@ -21,6 +21,7 @@ import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { GoogleMapsModule } from '@angular/google-maps';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -47,7 +48,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
            AngularFireStorageModule,
            AngularFireAnalyticsModule,
            FirebaseUIModule.forRoot(firebaseUiAuthConfig),
-           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+           GoogleMapsModule
         ],
   providers: [
     StatusBar,

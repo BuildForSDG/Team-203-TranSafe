@@ -12,3 +12,11 @@ ion-tab-bar {
 
 
 }
+
+
+ion-tabs {
+  position: absolute;
+  z-index: 10;
+  --background: transparent;
+}
+
