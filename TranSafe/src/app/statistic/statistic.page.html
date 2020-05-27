@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>statistic</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar >
+  <ion-title>Statistics</ion-title>
+
+</ion-toolbar>
 
 <ion-content>
+
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+
+      <ion-tab-button tab="/todaystats" >
+        <ion-label>TODAY</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="/weekstats">
+        <ion-label>WEEK</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="/monthstats">
+        <ion-label>MONTH</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
 
 </ion-content>
