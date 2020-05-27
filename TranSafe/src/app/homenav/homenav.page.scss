@@ -14,9 +14,11 @@ ion-tab-bar {
 }
 
 
-ion-tabs {
+ion-tab-bar.my-custom-tab-bar {
   position: absolute;
-  z-index: 10;
-  --background: transparent;
-}
+  bottom: 0;
+  width: 90%;
+  --background: rgba(255, 255, 255, 0.884);
 
+
+}
