@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 const routes: Routes = [
   {
-    path: 'statistic',
+    path: '',
     loadChildren: () => import('./homenav/homenav.module').then( m => m.HomenavPageModule),
     canActivate: [WelcomeGuard, HomesignedinGuard]
   },

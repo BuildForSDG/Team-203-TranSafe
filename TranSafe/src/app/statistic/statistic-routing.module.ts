@@ -10,20 +10,20 @@ const routes: Routes = [
     children: [
 
       {
-        path: 'todaystats',
+        path: 'statistic/todaystats',
         loadChildren: () => import('./../todaystats/todaystats.module').then( m => m.TodaystatsPageModule)
       },
       {
-        path: 'weekstats',
+        path: 'statistic/weekstats',
         loadChildren: () => import('./../weekstats/weekstats.module').then( m => m.WeekstatsPageModule)
       },
       {
-        path: 'monthstats',
+        path: 'statistic/monthstats',
         loadChildren: () => import('./../monthstats/monthstats.module').then( m => m.MonthstatsPageModule)
       },
       {
         path: '',
-        redirectTo: 'todaystats',
+        redirectTo: '/homenav/statistic/todaystats',
         pathMatch: 'full'
       }
     ]
