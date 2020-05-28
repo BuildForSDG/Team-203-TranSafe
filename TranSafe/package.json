@@ -43,6 +43,7 @@
     "googleapis": "^51.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
+    "typescript": "^3.8.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -71,8 +72,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
-    "typescript": "^3.8.3"
+    "tslint": "~5.15.0"
   },
   "description": "An Ionic project"
 }
