@@ -9,35 +9,6 @@ import { StatisticPageRoutingModule } from './statistic-routing.module';
 import { StatisticPage } from './statistic.page';
 
 
-import { Routes, RouterModule } from '@angular/router';
-
-
-
-const routes: Routes = [
-  {
-    path: 'statistic',
-    component: StatisticPage,
-    children: [
-
-      {
-        path: '/todaystats',
-        loadChildren: () => import('./../todaystats/todaystats.module').then( m => m.TodaystatsPageModule)
-      },
-      {
-        path: '/weekstats',
-        loadChildren: () => import('./../weekstats/weekstats.module').then( m => m.WeekstatsPageModule)
-      },
-      {
-        path: '/monthstats',
-        loadChildren: () => import('./../monthstats/monthstats.module').then( m => m.MonthstatsPageModule)
-      },
-
-
-    ],
-
-  },
-];
-
 
 
 @NgModule({
@@ -45,9 +16,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    StatisticPageRoutingModule,
-    RouterModule.forChild(routes)
+    StatisticPageRoutingModule
   ],
-  declarations: [StatisticPage]
+  declarations: [StatisticPage],
 })
 export class StatisticPageModule {}
