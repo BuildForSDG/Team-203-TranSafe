@@ -10,15 +10,15 @@ const routes: Routes = [
     children: [
 
       {
-        path: 'statistic/todaystats',
+        path: 'todaystats',
         loadChildren: () => import('./../todaystats/todaystats.module').then( m => m.TodaystatsPageModule)
       },
       {
-        path: 'statistic/weekstats',
+        path: 'weekstats',
         loadChildren: () => import('./../weekstats/weekstats.module').then( m => m.WeekstatsPageModule)
       },
       {
-        path: 'statistic/monthstats',
+        path: 'monthstats',
         loadChildren: () => import('./../monthstats/monthstats.module').then( m => m.MonthstatsPageModule)
       },
       {

@@ -1,26 +1,19 @@
 <ion-toolbar >
   <ion-title>Statistics</ion-title>
-
+  <ion-segment mode="ios">
+    <ion-segment-button value="day" checked>
+      <ion-label>Day</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="month">
+      <ion-label>Week</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="week">
+      <ion-label>Month</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-toolbar>
 
 <ion-content>
 
-  <ion-tabs>
-    <ion-tab-bar slot="top">
-
-      <ion-tab-button tab="todaystats" >
-        <ion-label>TODAY</ion-label>
-      </ion-tab-button>
-
-      <ion-tab-button tab="weekstats">
-        <ion-label>WEEK</ion-label>
-      </ion-tab-button>
-
-      <ion-tab-button tab="monthstats">
-        <ion-label>MONTH</ion-label>
-      </ion-tab-button>
-
-    </ion-tab-bar>
-  </ion-tabs>
 
 </ion-content>
