@@ -1,6 +1,6 @@
 <ion-toolbar >
   <ion-title>Statistics</ion-title>
-  <ion-segment mode="ios">
+  <ion-segment [(ngModel)]="section"  mode="ios"  (ionChange)="segmentChanged($event)" >
     <ion-segment-button value="day" checked>
       <ion-label>Day</ion-label>
     </ion-segment-button>
@@ -14,6 +14,44 @@
 </ion-toolbar>
 
 <ion-content>
+  <div>
+    <ion-grid >
+      <!-- Grid show  -->
+            <ion-row>
+                <ion-col>
+                  <ion-card class="mion-card">
+                    <ion-card-content>
+                      <canvas height="260px"  #barChart></canvas>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
 
+            </ion-row>
+      <!-- Status Show  -->
+            <ion-row>
+              <ion-card class="statscard">
+                <ion-grid>
+                  <ion-row>
+                    <ion-progress-bar value="0.3"></ion-progress-bar>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size-xs="6"  offset-md="3">
+                      <ion-row>
+                        <ion-icon name="radio-button-on"></ion-icon>
+                        <h5>Stats</h5>
+                      </ion-row>
+                    </ion-col>
+                    <ion-col size-xs="6" size-md="3" offset-md="3">
+                      <h5 style="position: absolute; right:0; margin-right:10px">Bad</h5>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card>
+
+            </ion-row>
+    </ion-grid>
+
+
+</div>
 
 </ion-content>

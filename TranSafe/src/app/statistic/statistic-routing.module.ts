@@ -6,27 +6,7 @@ import { StatisticPage } from './statistic.page';
 const routes: Routes = [
   {
     path: '',
-    component: StatisticPage,
-    children: [
-
-      {
-        path: 'todaystats',
-        loadChildren: () => import('./../todaystats/todaystats.module').then( m => m.TodaystatsPageModule)
-      },
-      {
-        path: 'weekstats',
-        loadChildren: () => import('./../weekstats/weekstats.module').then( m => m.WeekstatsPageModule)
-      },
-      {
-        path: 'monthstats',
-        loadChildren: () => import('./../monthstats/monthstats.module').then( m => m.MonthstatsPageModule)
-      },
-      {
-        path: '',
-        redirectTo: '/homenav/statistic/todaystats',
-        pathMatch: 'full'
-      }
-    ]
+    component: StatisticPage
   },
 
 
