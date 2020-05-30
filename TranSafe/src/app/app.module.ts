@@ -14,13 +14,31 @@ import { AngularFirestoreModule, FirestoreSettingsToken  } from '@angular/fire/f
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAnalyticsModule} from '@angular/fire/analytics';
-import { environment } from 'src/environments/environment';
+import {RouterModule} from '@angular/router';
+
+
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.PhoneAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: '<your-tos-link>',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+};
+
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
+           RouterModule,
            IonicModule.forRoot(),
            AppRoutingModule,
            AngularFireModule.initializeApp(environment.firebase),
@@ -28,6 +46,8 @@ import { environment } from 'src/environments/environment';
            AngularFirestoreModule,
            AngularFireStorageModule,
            AngularFireAnalyticsModule,
+           FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
         ],
   providers: [
     StatusBar,

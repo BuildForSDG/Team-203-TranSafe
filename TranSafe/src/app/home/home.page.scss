@@ -1,27 +1,19 @@
-#container {
+
+.custom-card-bg {
+  background-color: #5F4591;
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  border-radius: 10%;
+  height: 100px;
+  width: auto;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+
+
+ion-card-content {
+  margin: 10px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
 
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+ion-menu-button {
+  color: rgb(29, 29, 29);
 }
