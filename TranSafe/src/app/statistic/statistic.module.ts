@@ -8,6 +8,9 @@ import { StatisticPageRoutingModule } from './statistic-routing.module';
 
 import { StatisticPage } from './statistic.page';
 
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +18,6 @@ import { StatisticPage } from './statistic.page';
     IonicModule,
     StatisticPageRoutingModule
   ],
-  declarations: [StatisticPage]
+  declarations: [StatisticPage],
 })
 export class StatisticPageModule {}

@@ -1,12 +1,16 @@
+<ion-toolbar >
 
-  <ion-toolbar color="secondary">
-    <ion-title>Discover</ion-title>
-    <ion-searchbar placeholder="Search Favorites"></ion-searchbar>
-  </ion-toolbar>
-
-
-<ion-content>
-
-</ion-content>
+  <ion-grid>
+    <ion-row><ion-title>Discover</ion-title></ion-row>
+    <ion-row><ion-searchbar  value="Your location"></ion-searchbar></ion-row>
+  </ion-grid>
 
 
+</ion-toolbar>
+
+
+<google-map height="100vh" width="100%"></google-map>
+
+<ion-fab style="position:absolute; top:60%; right:0; margin:10px">
+  <ion-fab-button color="light"><ion-icon name="information-circle-outline"></ion-icon></ion-fab-button>
+</ion-fab>

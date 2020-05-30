@@ -10,30 +10,30 @@
         </ion-label>
       </div>
       <div class="home-item">
-        <ion-button padding fill="clear" color="light">
-          <ion-icon padding slot="start" name="home"></ion-icon>
+        <ion-icon padding slot="start" name="home-sharp"></ion-icon>
+        <ion-button routerLink="/homenav" padding fill="clear" color="light" (click)="toggleMenu()" >
            Home
         </ion-button>
       </div>
       <div class="achieve-button">
-        <ion-button padding fill="clear" color="light">
-          <ion-icon padding slot="start" name="book"></ion-icon>
+        <ion-icon name="ribbon-sharp"></ion-icon>
+        <ion-button padding routerLink="/achievement" fill="clear" color="light" (click)="toggleMenu()">
            Achievement
         </ion-button>
       </div>
       <div class="settings-button">
-        <ion-button padding fill="clear" color="light">
-          <ion-icon padding slot="start" name="cog-outline"></ion-icon>
+        <ion-icon name="settings-sharp"></ion-icon>
+        <ion-button padding fill="clear" color="light" (click)="toggleMenu()">
            Settings
         </ion-button>
       </div>
       <div class="about-button">
-        <ion-button padding fill="clear" color="light">
+        <ion-button padding fill="clear" color="light" (click)="toggleMenu()">
            <p>About Us</p>
         </ion-button>
       </div>
       <div class="logout-button">
-        <ion-button padding fill="clear" color="light">
+        <ion-button padding fill="clear" color="light" (onclick)="toggleMenu()">
         <p>Log Out</p>
         </ion-button></div>
     </div>

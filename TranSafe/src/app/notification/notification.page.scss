@@ -1,0 +1,46 @@
+ion-toolbar {
+  height: 100px;
+  border-radius:0px 0px 0px 80px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px #e2e2e2;
+  z-index: 1px;
+
+}
+
+
+ion-title {
+  margin-top: 10px;
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+ion-list {
+  margin-top: 10px;
+}
+
+ion-card {
+  width: 100%;
+}
+
+ion-badge {
+  height: 25px;
+  font-size: larger;
+
+}
+
+ion-icon {
+  height: 20px;
+  width: 20px;
+}
+
+ion-item {
+  --border-width: 0;
+  --inner-border-width: 0;
+}
+
+
+ion-list {
+  margin-bottom: 30%;
+}
+
+
