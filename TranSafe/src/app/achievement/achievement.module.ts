@@ -4,20 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { StatisticPageRoutingModule } from './statistic-routing.module';
+import { AchievementPageRoutingModule } from './achievement-routing.module';
 
-import { StatisticPage } from './statistic.page';
-
-
-
+import { AchievementPage } from './achievement.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StatisticPageRoutingModule
+    AchievementPageRoutingModule
   ],
-  declarations: [StatisticPage],
+  declarations: [AchievementPage]
 })
-export class StatisticPageModule {}
+export class AchievementPageModule {}
