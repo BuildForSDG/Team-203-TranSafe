@@ -32,11 +32,19 @@
 .unit {
   color: #8a56ac;
 }
-
+span.small {
+  font-size: xx-small;
+}
 .speed-value {
   margin-top: 48px;
   font-size: 2em;
   color: red;
+}
+
+.track-button {
+  position: absolute;
+  left: 75%;
+  bottom: 5%;
 }
 
 .current-speed {
