@@ -54,8 +54,6 @@ ion-title {
 .header ion-card {
   border-bottom-left-radius: 60px;
   margin: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
 }
 
 .header h1 {
@@ -73,8 +71,7 @@ ion-title {
 
 ion-card {
   background: white;
-  margin: 5px  15px;
-  margin-top: 13px;
+
   border-radius: 15px;
 }
 
@@ -93,8 +90,7 @@ ion-card {
 
 .c {
   margin: 10px 2px;
-  text-align: center;
-  font-size: 14px;
+
 }
 
 .c ion-card {
