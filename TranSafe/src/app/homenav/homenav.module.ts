@@ -9,42 +9,8 @@ import { HomenavPageRoutingModule } from './homenav-routing.module';
 import { HomenavPage } from './homenav.page';
 
 
-import { Routes, RouterModule } from '@angular/router';
 
 
-
-const routes: Routes = [
-  {
-    path: '',
-    component: HomenavPage,
-    children: [
-      {
-        path: '/',
-        redirectTo: '/app/homenav/home',
-        pathMatch: 'full'
-      },
-      {
-      path: 'home',
-      loadChildren: () => import('.././home/home.module').then( m => m.HomePageModule),
-      },
-      {
-        path: 'discover',
-        loadChildren: () => import('.././discover/discover.module').then( m => m.DiscoverPageModule)
-      },
-      {
-        path: 'notification',
-        loadChildren: () => import('.././notification/notification.module').then( m => m.NotificationPageModule)
-      },
-      {
-        path: 'statistic',
-        loadChildren: () => import('.././statistic/statistic.module').then( m => m.StatisticPageModule),
-      },
-
-
-    ],
-
-  },
-];
 
 
 
@@ -54,7 +20,6 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     HomenavPageRoutingModule,
-    RouterModule.forChild(routes)
   ],
   declarations: [HomenavPage]
 })

@@ -1,0 +1,43 @@
+ion-toolbar {
+  height: 100px;
+  border-radius:0px 0px 0px 80px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px #e2e2e2;
+  position: absolute;
+  z-index: 1;
+
+}
+
+
+ion-title {
+  margin-top: 20px;
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+ion-searchbar {
+
+  border: 0 !important;
+  box-shadow: none !important;
+  width: auto;
+  margin-left: 20px;
+  font-size: small;
+}
+
+
+.sc-ion-searchbar-md-h {
+  --box-shadow: none !important
+}
+
+
+google-map {
+  margin-top: 10px;
+  height: 100vh;
+}
+
+ion-fab-button {
+  width: 35px;
+  height: 35px;
+}
+
+

@@ -9,15 +9,18 @@ export class SpeedometerComponent implements OnInit {
 
   @ViewChild('currentSpeed', {static: true}) currentSpeed: ElementRef;
 
+
   constructor() { }
 
-  ngOnInit() { this.updateCurrentSpeed()}
+  ngOnInit() { this.updateCurrentSpeed(); }
+
 
 // Every 30 degree is equivalent to 20km/h
   updateCurrentSpeed() {
-    this.currentSpeed.nativeElement.style.transform = 'rotate(' + 340 +'deg)';
+
+    this.currentSpeed.nativeElement.style.transform = 'rotate(' + 340 + 'deg)';
   }
-//up
+
 
   // when over speeding
 

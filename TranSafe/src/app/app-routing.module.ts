@@ -1,3 +1,5 @@
+},
+  {
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { WelcomeGuard } from './guards/welcome.guard';
@@ -25,6 +27,19 @@ const routes: Routes = [
     loadChildren: () => import('./homenav/homenav.module').then( m => m.HomenavPageModule),
 
   },
+  {
+
+    path: 'achievement',
+    loadChildren: () => import('./achievement/achievement.module').then( m => m.AchievementPageModule)
+  },
+
+
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
 ];
 
 @NgModule({
@@ -36,3 +51,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

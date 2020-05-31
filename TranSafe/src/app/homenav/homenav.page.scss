@@ -1,14 +1,37 @@
 
 ion-icon {
-  color: #8a56ac;
 
+  color: #5F4591;
+  height: 18px;
+  width: 18px;
+
+}
+
+ion-label {
+  margin-top: 6px;
+  color: gray;
 }
 
 ion-tab-bar {
   margin-left: 20px;
   margin-right: 20px;
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
   box-shadow: 1px 1px 1px 1px rgba(190, 190, 190, 0.26);
 
 
+}
+
+
+ion-tab-bar.my-custom-tab-bar {
+  position: absolute;
+  height: 10%;
+  bottom: 0;
+  width: 90%;
+  --background: rgba(255, 255, 255, 0.884);
+
+
+}
+
+ion-tab-button {
+  --ripple-color: grey;
 }
