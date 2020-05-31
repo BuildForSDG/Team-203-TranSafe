@@ -1,7 +1,7 @@
 .speedometer-card {
 
   width: auto;
-  height: 30vh;
+  height: 35vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,10 +9,11 @@
   overflow: hidden;
 }
 
+
 .speedometer {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 220px;
+  height: 220px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,14 +42,16 @@ span.small {
 }
 .speed-value {
   margin-top: 48px;
-  font-size: 2em;
+  font-size: 1.5em;
   color: red;
 }
 
 .track-button {
   position: absolute;
-  left: 75%;
-  bottom: 5%;
+  left: 78%;
+  bottom: 2%;
+  width: 60px;
+  height: 30px;
 }
 
 .current-speed {
