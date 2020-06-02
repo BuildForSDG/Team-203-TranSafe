@@ -1,0 +1,39 @@
+<ion-toolbar >
+  <ion-button routerLink="/settings"   style="position: absolute; left:0; top:0;" color="light" > <ion-icon name="arrow-back-outline"></ion-icon> </ion-button>
+  <ion-title>Settings</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <div class="notification">
+        <ion-row>
+          <ion-col>
+            Show notifications
+            <p>Toggle ON to allow Notifications</p>
+          </ion-col>
+          <ion-col>
+            <ion-toggle></ion-toggle>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div class="driver">
+        <ion-row>
+          <ion-col>
+            Show driver stats
+            <p>Toggle ON to allow tracking</p>
+          </ion-col>
+          <ion-col>
+            <ion-toggle></ion-toggle>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
