@@ -91,14 +91,13 @@ export class FirebaseAuthenticationService {
         task
         .snapshotChanges()
         .pipe( finalize( () => {
-          storageRef.getDownloadURL()
-          .subscribe( mdata => {
-            const downloadURL = mdata;
+          storageRef.getDownloadURL().subscribe(murl => {
 
+            const newUrl = String(murl).replace('?', '_400x400?');
             const userData = {
               phoneNumber: dphone,
               displayName: dname,
-              photoURL: downloadURL,
+              photoURL: newUrl,
               bio: dbio,
               email: demail
             };
@@ -112,9 +111,7 @@ export class FirebaseAuthenticationService {
 
       }
 
-
-
-    });
+         });
 
 
   }
