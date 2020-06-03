@@ -30,7 +30,11 @@ const routes: Routes = [
 
     path: 'achievement',
     loadChildren: () => import('./achievement/achievement.module').then( m => m.AchievementPageModule)
+  },  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
+
 
 
 ];
