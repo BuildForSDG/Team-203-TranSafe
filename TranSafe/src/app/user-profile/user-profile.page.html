@@ -1,0 +1,42 @@
+<ion-content>
+  <ion-grid>
+
+    <ion-row>
+      <ion-button routerLink="/homenav" class="back-btn" color="light"><ion-icon name="arrow-back-sharp"></ion-icon></ion-button>
+      <ion-img  height="100px" class="imgclass" src="../assets/icon/risk 1.svg"></ion-img>
+    </ion-row>
+    <ion-row>
+      <ion-button class="btnclass" fill="outline" color="medium" (click)="openModalWithData()">Edit Profile</ion-button>
+    </ion-row>
+    <ion-row>
+      <ion-list>
+        <ion-item>
+          <ion-col>
+            <ion-label class="header">Display Name</ion-label>
+            <ion-label class="val">Ian</ion-label>
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-col>
+            <ion-label class="header">Phone Number</ion-label>
+            <ion-label class="val">0549931199</ion-label>
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-col>
+            <ion-label class="header">Email</ion-label>
+            <ion-label class="val">iancecil@gmail.com</ion-label>
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-col>
+            <ion-label class="header">Bio</ion-label>
+            <ion-label class="val">I am Good</ion-label>
+          </ion-col>
+        </ion-item>
+
+      </ion-list>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

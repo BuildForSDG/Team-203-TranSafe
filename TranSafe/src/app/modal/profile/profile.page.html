@@ -1,0 +1,48 @@
+<ion-header color="primary">
+  <ion-toolbar>
+    <ion-row>
+      <ion-button class="close" color="light" (click)="closeModal()"><ion-icon name="close-sharp"></ion-icon></ion-button>
+      <ion-title>Edit profile</ion-title>
+    </ion-row>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-list>
+    <ion-img #imagedisp src="{{imgurl}}"></ion-img>
+    <ion-button class="cam" color="light" (click)="popFileChooser()"><ion-icon name="camera-sharp"></ion-icon></ion-button>
+    <input type="file"  accept="image/*" (change)="onFileChange($event)"  #uploader hidden>
+    <ion-item>
+      <ion-col>
+        <ion-label>Display Name</ion-label>
+        <ion-input #dname  (change)="onNameChange($event)" value="{{name}}"></ion-input>
+      </ion-col>
+    </ion-item>
+    <ion-item>
+      <ion-col>
+        <ion-label>Phone Number</ion-label>
+        <ion-input #dphone type="tel" (change)="onPhoneChange($event)"  value="{{phone}}"></ion-input>
+      </ion-col>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-col>
+        <ion-label>Email</ion-label>
+        <ion-input #demail type="email" (change)="onEmailChange($event)" value="{{email}}"></ion-input>
+      </ion-col>
+
+    </ion-item>
+    <ion-item>
+      <ion-col>
+        <ion-label>Bio</ion-label>
+        <ion-input #dbio (change)="onBioChange($event)" value="{{bio}}"></ion-input>
+      </ion-col>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

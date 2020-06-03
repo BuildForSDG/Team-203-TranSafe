@@ -8,7 +8,8 @@ import {User} from 'firebase';
 
 import { Plugins } from '@capacitor/core';
 import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
-
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 const { Storage } = Plugins;
 
@@ -18,7 +19,11 @@ const { Storage } = Plugins;
 })
 export class FirebaseAuthenticationService {
 
-  constructor(private auth0: AngularFireAuth,  private router: Router,  private afs: AngularFirestore) { }
+  constructor(private auth0: AngularFireAuth,
+              private router: Router,
+              private afs: AngularFirestore,
+              private storage: AngularFireStorage
+              ) { }
 
 
   listenToSignIn() {
@@ -56,6 +61,59 @@ export class FirebaseAuthenticationService {
       merge: true
     });
   }
+
+  updateUserData(dname, demail, dphone, dimgurl, dbio) {
+    this.auth0.user.subscribe(user => {
+
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid.toString()}`);
+      const storageUrl = 'images/';
+      const storageRef = this.storage.ref(storageUrl + String(`image${Date.now()}`));
+      if (!dimgurl) {
+        const userData = {
+          phoneNumber: dphone,
+          displayName: dname,
+          bio: dbio,
+          email: demail
+        };
+
+        return userRef.set(userData, {
+          merge: true
+        });
+      } else {
+
+        const task = storageRef.put(dimgurl);
+
+        task
+        .snapshotChanges()
+        .pipe( finalize( () => {
+          storageRef.getDownloadURL()
+          .subscribe( mdata => {
+            const downloadURL = mdata;
+
+            const userData = {
+              phoneNumber: dphone,
+              displayName: dname,
+              photoURL: downloadURL,
+              bio: dbio,
+              email: demail
+            };
+
+            return userRef.set(userData, {
+              merge: true
+            });
+          });
+
+        } ) ).subscribe();
+
+      }
+
+
+
+    });
+
+
+  }
+
 
 
 }

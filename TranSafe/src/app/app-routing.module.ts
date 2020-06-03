@@ -31,6 +31,11 @@ const routes: Routes = [
     path: 'achievement',
     loadChildren: () => import('./achievement/achievement.module').then( m => m.AchievementPageModule)
   },
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+  },
+
 
 
 ];

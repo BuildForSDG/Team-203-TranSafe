@@ -1,0 +1,30 @@
+.imgclass {
+  height: 280px;
+  border-radius:0px 0px 0px 80px;
+  box-shadow: 0px 2px 0px 0px #e2e2e2;
+  width: 100%;
+}
+
+.btnclass {
+  margin-top: 20px;
+  margin-left: 50%;
+}
+
+.header {
+  color: black;
+  font-weight: 600;
+}
+
+ion-item {
+  margin: 5px;
+}
+
+
+
+.back-btn {
+  --box-shadow:0;
+  position: absolute;
+  z-index: 10;
+  top:10px;
+  left: 10px;
+}
