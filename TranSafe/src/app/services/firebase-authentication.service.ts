@@ -68,12 +68,12 @@ export class FirebaseAuthenticationService {
 
   updateUserData(dname, demail, dphone, dimgurl, dbio) {
     this.auth0.user.subscribe(user => {
-      console.log(dimgurl);
+      console.log('This is ist', dimgurl, typeof(dimgurl));
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid.toString()}`);
       const storageUrl = 'profile_images/';
       const storageRef = this.storage.ref(storageUrl + String(`image${Date.now()}`));
-      if (!dimgurl) {
-        console.log(dimgurl);
+      if (!dimgurl || typeof(dimgurl) === 'string') {
+        console.log('worked');
         const userData = {
           phoneNumber: dphone,
           displayName: dname,

@@ -27,6 +27,10 @@ export class ProfilePage implements OnInit {
 
   setImg;
   ngOnInit() {
+    this.name = this.name || '';
+    this.phone = this.phone || '';
+    this.email = this.email || '';
+    this.bio = this.bio || '';
   }
 
 
