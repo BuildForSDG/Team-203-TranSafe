@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SpeedService } from 'src/app/services/speed.service';
+import { Plugins } from '@capacitor/core';
+const { LocalNotifications } = Plugins;
+
+
 
 @Component({
   selector: 'app-speedometer',
@@ -31,15 +35,52 @@ export class SpeedometerComponent implements OnInit {
      }
 
 
-  startTrackUser() {
+  async startTrackUser() {
 
     if (this.updateBtnText === 'Track') {
       this.speedService.startTracking();
       this.speedService.initTrackUser();
       this.updateBtnText = 'Stop';
+
+      // send user notification
+      const notifs = await LocalNotifications.schedule({
+        notifications: [
+          {
+            title: 'Tracking',
+            body: 'Tracking Started at date:' + Date.now(),
+            id: 1,
+            schedule: { at: new Date(Date.now() ) },
+            sound: null,
+            attachments: null,
+            actionTypeId: '',
+            extra: null
+          }
+        ]
+      });
+
+
+      console.log(notifs);
+
     } else {
       this.speedService.stopTracking();
       this.updateBtnText = 'Track';
+      const notifs = await LocalNotifications.schedule({
+        notifications: [
+          {
+            title: 'Tracking',
+            body: 'Tracking Stopped at date:' + Date.now(),
+            id: 1,
+            schedule: { at: new Date(Date.now() ) },
+            sound: null,
+            attachments: null,
+            actionTypeId: '',
+            extra: null
+          }
+        ]
+      });
+
+
+      console.log(notifs);
     }
 
 
