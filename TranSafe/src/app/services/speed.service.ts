@@ -1,4 +1,4 @@
-import { Injectable, ViewChild, ElementRef } from '@angular/core';
+import { Injectable, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -6,9 +6,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const { App, BackgroundTask, Geolocation } = Plugins;
-
-
+const { Geolocation } = Plugins;
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { Platform } from '@ionic/angular';
 declare var google;
 
 
@@ -22,7 +22,13 @@ export class SpeedService {
 // Map related
 @ViewChild('map') mapElement: ElementRef;
 map: any;
+
+
 markers = [];
+userCity;
+latLngResult;
+
+
 
  // Firebase Data
  locations: Observable<any>;
@@ -32,8 +38,11 @@ markers = [];
   isTracking = false;
   watch: string;
 
-  constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore) { }
+  constructor(public zone: NgZone,
+              private afAuth: AngularFireAuth,
+              private afs: AngularFirestore,
+              private nativeGeocoder: NativeGeocoder,
+              private platform: Platform) { }
 
   initTrackUser() {
     this.afAuth.user.subscribe(user => {
@@ -83,6 +92,17 @@ getDataRealTime() {
 }
   // Save a new location to Firebase and center the map
 addNewLocation(lat, lng, timestamp, speed, heading) {
+  // get the location type and compare to speed limits
+
+  const speedLimits = {
+        city: 30,
+        urban: 50,
+        highways: 80 || 90,
+        motorway: 100
+  };
+
+  this.reverseGeocode(lat, lng);
+
   this.locationsCollection.add({
     lat,
     lng,
@@ -120,6 +140,55 @@ loadMap() {
 
   this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 }
+
+
+
+// reverse geocode to get place type
+reverseGeocode(lat, lng) {
+  if (this.platform.is('cordova')) {
+    const options: NativeGeocoderOptions = {
+      useLocale: true,
+      maxResults: 5
+    };
+    this.nativeGeocoder.reverseGeocode(lat, lng, options)
+      .then((result: NativeGeocoderResult[]) => {
+        console.log(result[0]);
+
+      })
+      .catch((error: any) => console.log(error));
+  } else {
+    this.getGeoLocation(lat, lng, 'reverseGeocode');
+  }
+}
+
+
+
+
+async getGeoLocation(lat: number, lng: number, type?) {
+  if (navigator.geolocation) {
+    const geocoder = await new google.maps.Geocoder();
+    const latlng = await new google.maps.LatLng(lat, lng);
+    const request = { latLng: latlng };
+
+    await geocoder.geocode(request, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const result = results[0];
+        this.zone.run(() => {
+          if (result != null) {
+            this.userCity = result.formatted_address;
+            console.log(result.formatted_address);
+            if (type === 'reverseGeocode') {
+              console.log(result.formatted_address);
+              this.latLngResult = result.formatted_address;
+            }
+          }
+        });
+      }
+    });
+  }
+}
+
+
 
 
 }
