@@ -1,0 +1,26 @@
+.close {
+  --box-shadow:0;
+}
+
+ion-img {
+  height: 100px;
+  width: 30%;
+  margin:0 auto;
+  top: 20px;
+}
+
+ion-item {
+  margin: 10px;
+}
+
+.cam {
+  position: absolute;
+
+  left: 68%;
+  top: 65px;
+  z-index: 10;
+  background: transparent !important;
+  ion-icon {
+    color: gray;
+  }
+}

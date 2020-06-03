@@ -3,10 +3,10 @@
     <ion-content color="medium tint">
       <div class="menu-container-bg">
       <div class="header-content">
-        <img class="user-avatar" src="../assets/images/avatar.jpg" alt="user profile image" />
+        <img  src="{{imgurl}}" class="user-avatar" alt="user profile image" />
         <ion-label>
-          <h1>Ann</h1>
-          <p>@ann009</p>
+          <h1>{{name}}</h1>
+          <p>{{email}}</p>
         </ion-label>
       </div>
       <div class="home-item">
@@ -15,6 +15,13 @@
            Home
         </ion-button>
       </div>
+      <div>
+        <ion-icon name="person-sharp"></ion-icon>
+        <ion-button padding routerLink="/user-profile" fill="clear" color="light" (click)="toggleMenu()">
+           User Profile
+        </ion-button>
+      </div>
+
       <div class="achieve-button">
         <ion-icon name="ribbon-sharp"></ion-icon>
         <ion-button padding routerLink="/achievement" fill="clear" color="light" (click)="toggleMenu()">
