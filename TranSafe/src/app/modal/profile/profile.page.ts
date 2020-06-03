@@ -77,7 +77,10 @@ export class ProfilePage implements OnInit {
 
       reader.onload = (e) => {
         this.setImg = e.target.result;
-        this.imgurl = this.setImg;
+        if ( this.imgurl !== this.setImg) {
+          this.imgurl = this.setImg;
+        }
+
     };
   }
 

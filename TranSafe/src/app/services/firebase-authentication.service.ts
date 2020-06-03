@@ -115,5 +115,15 @@ export class FirebaseAuthenticationService {
   }
 
 
+  getUserdata() {
+    this.auth0.user.subscribe(user => {
+      return this.afs.collection('users')
+              .doc(user.uid)
+              .snapshotChanges();
+
+    });
+
+  }
+
 
 }
