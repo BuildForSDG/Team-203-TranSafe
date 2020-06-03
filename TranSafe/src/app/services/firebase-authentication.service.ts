@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot, Action } from '@angular/fire/firestore';
 import {  Router } from '@angular/router';
 
 import {User} from 'firebase';
@@ -10,6 +10,7 @@ import { Plugins } from '@capacitor/core';
 import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 const { Storage } = Plugins;
 
@@ -19,6 +20,8 @@ const { Storage } = Plugins;
 })
 export class FirebaseAuthenticationService {
 
+
+  muid;
   constructor(private auth0: AngularFireAuth,
               private router: Router,
               private afs: AngularFirestore,
@@ -116,15 +119,18 @@ export class FirebaseAuthenticationService {
 
 
   getUserdata() {
-   let muid: any;
+
    this.auth0.user.subscribe(user => {
-        muid = user.uid;
+        this.muid = user.uid.toString();
+        console.log(user.uid);
+        console.log(this.muid);
+
+
     });
 
    return this.afs.collection('users')
-    .doc(muid)
+    .doc(this.muid)
     .snapshotChanges();
-
 
   }
 
