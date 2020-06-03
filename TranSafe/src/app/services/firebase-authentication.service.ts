@@ -116,12 +116,15 @@ export class FirebaseAuthenticationService {
 
 
   getUserdata() {
-    this.auth0.user.subscribe(user => {
-      return this.afs.collection('users')
-              .doc(user.uid)
-              .snapshotChanges();
-
+   let muid: any;
+   this.auth0.user.subscribe(user => {
+        muid = user.uid;
     });
+
+   return this.afs.collection('users')
+    .doc(muid)
+    .snapshotChanges();
+
 
   }
 

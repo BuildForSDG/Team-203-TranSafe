@@ -1,12 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ProfilePage } from '../modal/profile/profile.page';
+import { FirebaseAuthenticationService } from '../services/firebase-authentication.service';
+
+
+export interface RefData {
+  phoneNumber: string;
+  displayName: string;
+  photoURL: string;
+  bio: string;
+  email: string;
+}
+
+
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss'],
 })
+
+
+
+
 export class UserProfilePage implements OnInit {
 
 
@@ -18,15 +34,16 @@ export class UserProfilePage implements OnInit {
     bio: 'this isnt me'
   };
 
-   public name  = 'ian';
-   public phone = '0549';
-   public email = 'ian@gmail';
-   public bio = 'Iam Good';
-   public imgurl = 'https://google.com';
+   public name  = '';
+   public phone = '';
+   public email = '';
+   public bio = '';
+   public imgurl = '';
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private authService: FirebaseAuthenticationService) { }
 
   ngOnInit() {
+    this.getData();
   }
 
 
@@ -58,6 +75,21 @@ export class UserProfilePage implements OnInit {
 
     return await modal.present().then(_ => {
       console.log('Sending: ', this.pdata);
+    });
+  }
+
+
+  getData() {
+    this.authService
+    .getUserdata().
+    subscribe(user => {
+
+       const data = user.payload.data() as RefData;
+       this.name  = data.displayName;
+       this.phone = data.phoneNumber;
+       this.email = data.email;
+       this.bio = data.bio;
+       this.imgurl = data.photoURL;
     });
   }
 
