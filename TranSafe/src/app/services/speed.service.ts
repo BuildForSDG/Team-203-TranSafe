@@ -123,5 +123,19 @@ updateMap(locations) {
 }
 
 
+loadMap() {
+  // tslint:disable-next-line:prefer-const
+  let latLng = new google.maps.LatLng(5.550000, -0.020000);
+
+  // tslint:disable-next-line:prefer-const
+  let mapOptions = {
+    center: latLng,
+    zoom: 5,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+}
+
 
 }

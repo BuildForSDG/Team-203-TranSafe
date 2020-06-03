@@ -14,7 +14,7 @@ export class SpeedometerComponent implements OnInit {
   constructor( private speedService: SpeedService) { }
 
   ngOnInit() {
-    this.speedService.initTrackUser();
+    // this.speedService.initTrackUser();
 
     this.updateCurrentSpeed();
 
