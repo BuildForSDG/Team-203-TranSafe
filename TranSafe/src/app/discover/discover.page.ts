@@ -69,6 +69,11 @@ updateMap(locations) {
   for (let loc of locations) {
      // tslint:disable-next-line:prefer-const
     let latLng = new google.maps.LatLng(loc.lat, loc.lng);
+    this.center = {
+      lat: loc.lat,
+      lng: loc.lng,
+    };
+
     this.markers.push({
       position: latLng,
       label: {
@@ -78,6 +83,10 @@ updateMap(locations) {
       title: 'Marker title ' + (this.markers.length + 1),
       options: { animation: google.maps.Animation.BOUNCE },
     });
+
+
+
+
   }
 }
 
