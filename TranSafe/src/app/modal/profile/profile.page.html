@@ -12,7 +12,7 @@
 
 
   <ion-list>
-    <ion-img #imagedisp src="{{imgurl}}"></ion-img>
+    <ion-img #imagedisp  [src]="onchangelistener ?  setImg : imgurl "></ion-img>
     <ion-button class="cam" color="light" (click)="popFileChooser()"><ion-icon name="camera-sharp"></ion-icon></ion-button>
     <input type="file"  accept="image/*" (change)="onFileChange($event)"  #uploader hidden>
     <ion-item>
