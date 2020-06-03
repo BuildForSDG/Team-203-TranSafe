@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { SpeedService } from 'src/app/services/speed.service';
 
 @Component({
   selector: 'app-speedometer',
@@ -10,7 +11,7 @@ export class SpeedometerComponent implements OnInit {
   @ViewChild('currentSpeed', {static: true}) currentSpeed: ElementRef;
 
 
-  constructor() { }
+  constructor( private speedService: SpeedService) { }
 
   ngOnInit() { this.updateCurrentSpeed(); }
 
@@ -22,6 +23,7 @@ export class SpeedometerComponent implements OnInit {
   }
 
 
-  // when over speeding
-
+  startTrackUser() {
+    this.speedService.startTracking();
+  }
 }
