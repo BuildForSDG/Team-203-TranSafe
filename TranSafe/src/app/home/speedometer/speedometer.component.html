@@ -18,5 +18,5 @@
     <div class="speed-value"><span class="small">Speed Limit:</span>060</div>
     <div class="unit">km/h</div>
   </div>
-  <ion-button color="primary"  class="track-button" (click)="startTrackUser()">Track</ion-button>
+  <ion-button color="primary" [ngClass]="{'my-css-class': updateBtnText === 'Stop'}"  class="track-button" (click)="startTrackUser()">{{updateBtnText}}</ion-button>
 </div>

@@ -35,7 +35,7 @@ markers = [];
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore) { }
 
-  trackUser() {
+  initTrackUser() {
     this.afAuth.user.subscribe(user => {
 
 

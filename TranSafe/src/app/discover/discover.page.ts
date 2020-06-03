@@ -1,4 +1,5 @@
 import {  Component, OnInit, ViewChild  } from '@angular/core';
+import { SpeedService } from '../services/speed.service';
 
 
 
@@ -12,7 +13,7 @@ export class DiscoverPage implements OnInit {
 
 
 
-  constructor() {
+  constructor(private speedService: SpeedService) {
 
   }
 
@@ -21,7 +22,10 @@ export class DiscoverPage implements OnInit {
 
 
   ngOnInit() {
+    if (this.speedService.isTracking) {
+    // this.speedService.initTrackUser();
 
+    }
 
   }
 

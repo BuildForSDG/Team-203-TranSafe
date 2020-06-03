@@ -176,3 +176,11 @@ span.small {
 .num12 div {
   transform: rotate(-360deg);
 }
+
+.my-css-class {
+  background-color: rgb(65, 65, 65)!important;;
+  --border-radius: 0;
+  --box-shadow: 0;
+
+
+}
