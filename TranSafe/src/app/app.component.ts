@@ -42,7 +42,12 @@ export class AppComponent {
         if (docdata.phoneNumber != null) {
           this.name  = docdata.displayName;
           this.email = docdata.email;
-          this.imgurl = docdata.photoURL;
+          if (docdata.photoURL != null) {
+            this.imgurl = docdata.photoURL;
+          } else {
+            this.imgurl = '../assets/images/avatar.jpg';
+          }
+
         }
       });
      } );
