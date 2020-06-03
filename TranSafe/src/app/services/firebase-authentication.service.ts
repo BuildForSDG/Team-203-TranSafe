@@ -11,6 +11,7 @@ import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { RefData } from '../user-profile/user-profile.page';
 
 const { Storage } = Plugins;
 
@@ -118,19 +119,15 @@ export class FirebaseAuthenticationService {
   }
 
 
-  getUserdata() {
-
-   this.auth0.user.subscribe(user => {
-        this.muid = user.uid.toString();
-        console.log(user.uid);
-        console.log(this.muid);
 
 
-    });
-
-   return this.afs.collection('users')
-    .doc(this.muid)
+  getUserdata(uuid: string) {
+    console.log(uuid);
+    return this.afs.collection('users')
+    .doc(uuid)
     .snapshotChanges();
+
+
 
   }
 

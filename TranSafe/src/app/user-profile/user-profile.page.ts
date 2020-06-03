@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ProfilePage } from '../modal/profile/profile.page';
 import { FirebaseAuthenticationService } from '../services/firebase-authentication.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 export interface RefData {
@@ -10,6 +11,7 @@ export interface RefData {
   photoURL: string;
   bio: string;
   email: string;
+  uid: string;
 }
 
 
@@ -40,10 +42,17 @@ export class UserProfilePage implements OnInit {
    public bio = '';
    public imgurl = '';
 
-  constructor(private modalController: ModalController, private authService: FirebaseAuthenticationService) { }
+  constructor(private modalController: ModalController,
+              private authService: FirebaseAuthenticationService,
+              private auth0: AngularFireAuth) { }
 
   ngOnInit() {
-    this.getData();
+    this.auth0.user.subscribe(user => {
+      this.getData(user.uid);
+
+     } );
+
+
   }
 
 
@@ -79,18 +88,25 @@ export class UserProfilePage implements OnInit {
   }
 
 
-  getData() {
-    this.authService
-    .getUserdata().
-    subscribe(user => {
+  getData(uuid: string) {
 
-       const data = user.payload.data() as RefData;
-       this.name  = data.displayName;
-       this.phone = data.phoneNumber;
-       this.email = data.email;
-       this.bio = data.bio;
-       this.imgurl = data.photoURL;
+
+    this.authService
+    .getUserdata(uuid)
+    .subscribe(md => {
+      const docdata = md.payload.data() as RefData;
+
+      if (docdata.phoneNumber != null) {
+        this.name  = docdata.displayName;
+        this.phone = docdata.phoneNumber;
+        this.email = docdata.email;
+        this.bio = docdata.bio;
+        this.imgurl = docdata.photoURL;
+        console.log(this.phone);
+      }
     });
+
+
   }
 
 }
