@@ -3,7 +3,7 @@ import { Plugins } from '@capacitor/core';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { Observable } from 'rxjs';
+import { Observable, range } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const { Geolocation } = Plugins;
@@ -91,24 +91,27 @@ getDataRealTime() {
      return this.locations;
 }
   // Save a new location to Firebase and center the map
-addNewLocation(lat, lng, timestamp, speed, heading) {
+  async addNewLocation(lat, lng, timestamp, speed, heading) {
   // get the location type and compare to speed limits
 
-  const speedLimits = {
-        city: 30,
-        urban: 50,
-        highways: 80 || 90,
-        motorway: 100
-  };
 
-  this.reverseGeocode(lat, lng);
+
+  const getName = await this.reverseGeocode(lat, lng);
+  // check against speed limit
+  console.log(getName);
+  const speedLimit = this.searchRoadType(getName);
+  console.log(speedLimit);
+  const convSpeed = (speed * 18) / 5;
+  const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
   this.locationsCollection.add({
     lat,
     lng,
     timestamp,
-    speed,
-    heading
+    convSpeed,
+    heading,
+    speedLimit,
+    overSpeed
   });
 
 
@@ -144,7 +147,8 @@ loadMap() {
 
 
 // reverse geocode to get place type
-reverseGeocode(lat, lng) {
+reverseGeocode(lat, lng): Promise<any> {
+  let nnmae;
   if (this.platform.is('cordova')) {
     const options: NativeGeocoderOptions = {
       useLocale: true,
@@ -153,18 +157,22 @@ reverseGeocode(lat, lng) {
     this.nativeGeocoder.reverseGeocode(lat, lng, options)
       .then((result: NativeGeocoderResult[]) => {
         console.log(result[0]);
-
+        nnmae = result[0].areasOfInterest;
       })
       .catch((error: any) => console.log(error));
   } else {
-    this.getGeoLocation(lat, lng, 'reverseGeocode');
+    nnmae =   this.getGeoLocation(lat, lng, 'reverseGeocode');
   }
+
+  return nnmae;
 }
 
 
 
 
 async getGeoLocation(lat: number, lng: number, type?) {
+
+  let nname;
   if (navigator.geolocation) {
     const geocoder = await new google.maps.Geocoder();
     const latlng = await new google.maps.LatLng(lat, lng);
@@ -176,6 +184,7 @@ async getGeoLocation(lat: number, lng: number, type?) {
         this.zone.run(() => {
           if (result != null) {
             this.userCity = result.formatted_address;
+            nname = result.formatted_address;
             console.log(result.formatted_address);
             if (type === 'reverseGeocode') {
               console.log(result.formatted_address);
@@ -186,8 +195,35 @@ async getGeoLocation(lat: number, lng: number, type?) {
       }
     });
   }
+
+
+  return nname;
 }
 
+
+
+searchRoadType(inputName: string): number {
+ const  pattern = [];
+ let result;
+ // tslint:disable-next-line:forin
+ for ( let i = 0; i < 17; i++ ) {
+    pattern.push('N' + i);
+  }
+
+ console.log(pattern);
+ pattern.map( pt => {
+ console.log(inputName);
+ if (String(inputName).includes(pt)) {
+    result = 100;
+    } else {
+      result = 40;
+    }
+
+    });
+
+ return result;
+
+}
 
 
 
