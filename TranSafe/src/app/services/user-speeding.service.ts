@@ -23,7 +23,7 @@ export class UserSpeedingService {
     const wait = Geolocation.watchPosition({}, (position, err) => {
       const user = auth().currentUser;
       // console.log(user);
-      // if (user) {
+      if (user) {
         const speeding = {
           accuracy: position.coords.accuracy,
           altitude: position.coords.altitude,
@@ -36,7 +36,7 @@ export class UserSpeedingService {
         }
         console.log(speeding);
         this.firestore.collection('speeding').doc(`${speeding.timestamp}`).set(speeding);
-      // }
+      }
     })
   }
 }
