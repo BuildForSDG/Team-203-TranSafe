@@ -28,11 +28,19 @@ export class SpeedometerComponent implements OnInit {
 // Every 30 degree is equivalent to 20km/h
   updateCurrentSpeed() {
 
-      this.currentSpeed.nativeElement.style.transform = 'rotate(' + 340 + 'deg)';
+    this.speedService.getDataRealTime().subscribe(locations => {
+      console.log(locations.speed);
+      if ( locations.speed !== null) {
+        const radian = (locations.speed * 18)  / 5;
+        this.currentSpeed.nativeElement.style.transform = `rotate(${ radian}deg)`;
+      }
+
+    });
+
+  }
 
 
 
-     }
 
 
   async startTrackUser() {
