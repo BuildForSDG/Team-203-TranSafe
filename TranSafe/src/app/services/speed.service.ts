@@ -38,18 +38,19 @@ markers = [];
   initTrackUser() {
     this.afAuth.user.subscribe(user => {
 
-
+      console.log(user.uid);
       this.locationsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
-        ref => ref.orderBy('timestamp')
+        ref => ref.orderBy('timestamp', 'desc').limit(1)
       );
     });
-
+    console.log('YYYYYYY1');
      // Make sure we also get the Firebase item ID!
     this.locations = this.locationsCollection
     .snapshotChanges()
     .pipe(map(actions =>
         actions.map(a => {
+          console.log( a.payload.doc.data());
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           return { id, ...data };
@@ -57,10 +58,6 @@ markers = [];
       ));
 
 
-    // Update Map marker on every change
-    this.locations.subscribe(locations => {
-        this.updateMap(locations);
-      });
 
 
   }
@@ -72,19 +69,26 @@ startTracking() {
         this.addNewLocation(
           position.coords.latitude,
           position.coords.longitude,
-          position.timestamp
+          position.timestamp,
+          position.coords.speed,
+          position.coords.heading
         );
       }
     });
   }
 
-
+getDataRealTime() {
+      // Update Map marker on every change
+     return this.locations;
+}
   // Save a new location to Firebase and center the map
-addNewLocation(lat, lng, timestamp) {
+addNewLocation(lat, lng, timestamp, speed, heading) {
   this.locationsCollection.add({
     lat,
     lng,
-    timestamp
+    timestamp,
+    speed,
+    heading
   });
 
 
@@ -101,26 +105,6 @@ stopTracking() {
 
 
 
-// Redraw all markers on the map
-updateMap(locations) {
-  // Remove all current marker
-  this.markers.map(marker => marker.setMap(null));
-  this.markers = [];
-
-  // tslint:disable-next-line:prefer-const
-  for (let loc of locations) {
-     // tslint:disable-next-line:prefer-const
-    let latLng = new google.maps.LatLng(loc.lat, loc.lng);
-
-    // tslint:disable-next-line:prefer-const
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: latLng
-    });
-    this.markers.push(marker);
-  }
-}
 
 
 loadMap() {

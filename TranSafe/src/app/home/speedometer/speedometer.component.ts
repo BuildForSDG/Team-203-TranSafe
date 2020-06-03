@@ -11,10 +11,10 @@ export class SpeedometerComponent implements OnInit {
   @ViewChild('currentSpeed', {static: true}) currentSpeed: ElementRef;
 
   updateBtnText = 'Track';
-  constructor( private speedService: SpeedService) { }
+  constructor( public speedService: SpeedService) { }
 
   ngOnInit() {
-    // this.speedService.initTrackUser();
+    this.speedService.initTrackUser();
 
     this.updateCurrentSpeed();
 
@@ -35,6 +35,7 @@ export class SpeedometerComponent implements OnInit {
 
     if (this.updateBtnText === 'Track') {
       this.speedService.startTracking();
+      this.speedService.initTrackUser();
       this.updateBtnText = 'Stop';
     } else {
       this.speedService.stopTracking();
