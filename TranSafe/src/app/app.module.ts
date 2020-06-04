@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, FirestoreSettingsToken  } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAnalyticsModule} from '@angular/fire/analytics';
 import {RouterModule} from '@angular/router';
@@ -60,6 +60,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {}},
+    { provide: BUCKET, useValue: 'gs://team-203-transafe.appspot.com' }
   ],
   bootstrap: [AppComponent]
 })
