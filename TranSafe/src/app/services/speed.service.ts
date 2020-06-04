@@ -33,8 +33,12 @@ latLngResult;
  // Firebase Data
  locations: Observable<any>;
  locationsCollection: AngularFirestoreCollection<any>;
- statisticCollection: AngularFirestoreCollection<any>;
- statistics: Observable<any>;
+ dayStatsCollection: AngularFirestoreCollection<any>;
+ weekStatsCollection: AngularFirestoreCollection<any>;
+ monthStatsCollection: AngularFirestoreCollection<any>;
+ getDayStats: Observable<any>;
+ getWeekStats: Observable<any>;
+ getMonthStats: Observable<any>;
 
   isTracking = false;
   watch: string;
@@ -55,6 +59,38 @@ latLngResult;
         ref => ref.orderBy('timestamp', 'desc').limit(1)
       );
 
+
+      this.dayStatsCollection = this.afs.collection(
+        `speed/${user.uid}/track`,
+        ref => ref.orderBy('timestamp', 'desc').where('timestamp', '>', Math.floor(Date.now() / 1000)).limit(20)
+      );
+
+
+      const weekdate = new Date();
+      const weekDay = new Date(weekdate.getFullYear(), weekdate.getMonth(), 7 - weekdate.getDay());
+      this.weekStatsCollection = this.afs.collection(
+        `speed/${user.uid}/track`,
+        ref => ref.orderBy('timestamp', 'desc')
+        .where('timestamp', '>', Math.floor(weekDay.getTime() / 1000))
+        .limit(20)
+      );
+
+
+
+      const monthdate = new Date();
+      const firstDay = new Date(monthdate.getFullYear(), monthdate.getMonth(), 1);
+      const lastDay = new Date(monthdate.getFullYear(), monthdate.getMonth() + 1, 0);
+      this.monthStatsCollection = this.afs.collection(
+        `speed/${user.uid}/track`,
+        ref => ref.orderBy('timestamp', 'desc')
+        .where('timestamp', '>', Math.floor(firstDay.getTime() / 1000))
+        .where('timestamp', '<', Math.floor(lastDay.getTime() / 1000))
+        .limit(30)
+      );
+
+
+
+
     });
 
 
@@ -72,15 +108,50 @@ latLngResult;
       ));
 
 
+    this.getDayStats = this.dayStatsCollection
+      .snapshotChanges()
+      .pipe(map(actions =>
+          actions.map(a => {
+
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        ));
+
+    this.getWeekStats = this.weekStatsCollection
+        .snapshotChanges()
+        .pipe(map(actions =>
+            actions.map(a => {
+
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            })
+          ));
+
+
+
+    this.getMonthStats = this.monthStatsCollection
+          .snapshotChanges()
+          .pipe(map(actions =>
+              actions.map(a => {
+
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              })
+            ));
 
 
   }
 
-startTracking(isdriving) {
+startTracking(isdriving, vehicleNumber) {
     this.isTracking = true;
     this.watch = Geolocation.watchPosition({}, (position, err) => {
       if (position) {
         this.addNewLocation(
+          vehicleNumber,
           isdriving,
           position.coords.latitude,
           position.coords.longitude,
@@ -100,44 +171,18 @@ getDataRealTime() {
 
 getStatsData(type) {
 
-  this.afAuth.user.subscribe(user => {
-
-
      // get data from server and feed to chart depending on display type
     switch (type) {
       case 'day': {
-
-        this.statisticCollection = this.afs.collection(
-          `speed/${user.uid}/track`,
-          ref => ref.orderBy('timestamp', 'desc').where('timestamp', '<', Math.floor(Date.now() / 1000)).limit(20)
-        );
+        return this.getDayStats;
         break;
       }
       case 'week': {
-
-        const date = new Date();
-        const weekDay = new Date(date.getFullYear(), date.getMonth(), 7 - date.getDay());
-        this.statisticCollection = this.afs.collection(
-          `speed/${user.uid}/track`,
-          ref => ref.orderBy('timestamp', 'desc')
-          .where('timestamp', '>', Math.floor(weekDay.getTime() / 1000))
-          .limit(20)
-        );
+        return this.getWeekStats;
         break;
       }
       case 'month': {
-
-        const date = new Date();
-        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-        this.statisticCollection = this.afs.collection(
-          `speed/${user.uid}/track`,
-          ref => ref.orderBy('timestamp', 'desc')
-          .where('timestamp', '>', Math.floor(firstDay.getTime() / 1000))
-          .where('timestamp', '<', Math.floor(lastDay.getTime() / 1000))
-          .limit(30)
-        );
-
+        return this.getMonthStats;
         break;
       }
       default: {
@@ -145,29 +190,10 @@ getStatsData(type) {
       }
    }
 
-
-
-
-
-  });
-
-
-  this.statistics = this.statisticCollection
-  .snapshotChanges()
-  .pipe(map(actions =>
-      actions.map(a => {
-
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })
-    ));
-
-  return this.statistics;
 }
 
   // Save a new location to Firebase and center the map
-async addNewLocation(isdriving, lat, lng, timestamp, speed, heading) {
+async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, heading) {
   // get the location type and compare to speed limits
 
 
@@ -181,6 +207,7 @@ async addNewLocation(isdriving, lat, lng, timestamp, speed, heading) {
   const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
   this.locationsCollection.add({
+    vehicleNumber,
     isdriving,
     lat,
     lng,
@@ -224,8 +251,8 @@ loadMap() {
 
 
 // reverse geocode to get place type
-reverseGeocode(lat, lng): Promise<any> {
-  let nnmae;
+  async reverseGeocode(lat, lng) {
+
   if (this.platform.is('cordova')) {
     const options: NativeGeocoderOptions = {
       useLocale: true,
@@ -234,14 +261,15 @@ reverseGeocode(lat, lng): Promise<any> {
     this.nativeGeocoder.reverseGeocode(lat, lng, options)
       .then((result: NativeGeocoderResult[]) => {
 
-        nnmae = result[0].areasOfInterest;
+        this.userCity = result[0].areasOfInterest;
       })
       .catch((error: any) => console.log(error));
   } else {
-    nnmae =   this.getGeoLocation(lat, lng, 'reverseGeocode');
+    this.userCity =  await this.getGeoLocation(lat, lng, 'reverseGeocode');
   }
 
-  return nnmae;
+
+  return this.userCity ;
 }
 
 
@@ -266,6 +294,8 @@ async getGeoLocation(lat: number, lng: number, type?) {
             if (type === 'reverseGeocode') {
 
               this.latLngResult = result.formatted_address;
+
+              nname = result.formatted_address;
             }
           }
         });
@@ -274,7 +304,7 @@ async getGeoLocation(lat: number, lng: number, type?) {
   }
 
 
-  return nname;
+  return this.latLngResult;
 }
 
 
@@ -296,6 +326,7 @@ searchRoadType(inputName: string): number {
     }
 
     });
+
 
  return result;
 

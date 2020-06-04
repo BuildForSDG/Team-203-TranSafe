@@ -48,30 +48,38 @@ export class SpeedometerComponent implements OnInit {
                 <ion-text>. Are You Driving <ion-icon name="car-sharp"></ion-icon>\
                  or Boarding <ion-icon name="man-sharp"></ion-icon>? Choose your option below</ion-text></ion-col></ion-row>\
                  </ion-grid> ',
+      inputs: [{
+                name: 'vhplatenumber',
+                type: 'text',
+                placeholder: 'Enter Vehicle Plate Number'
+              }],
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
+          handler: (data) => {
             this.isBeginTrack = false;
             this.updateBtnText = 'Track';
           }
         },
         {
           text: 'Boarding, Begin Tracking',
-          handler: (blah) => {
+          handler: (data) => {
+            const inputData = data.vhplatenumber;
             this.isBeginTrack = true;
-            this.boardingTrack('boarding');
+            this.boardingTrack('boarding', inputData);
             this.updateBtnText = 'Stop';
             this.updateCurrentSpeed();
           }
         }
         , {
           text: 'Driving, Begin Tracking',
-          handler: () => {
+          handler: (data) => {
+
+            const inputData = data.vhplatenumber;
             this.isBeginTrack = true;
-            this.drivingTrack('driving');
+            this.drivingTrack('driving', inputData);
             this.updateBtnText = 'Stop';
             this.updateCurrentSpeed();
           }
@@ -106,18 +114,18 @@ export class SpeedometerComponent implements OnInit {
   }
 
 
-async boardingTrack(status) {
+async boardingTrack(status, inputData) {
   const isdrive = (status === 'driving') ? true : false;
-  this.speedService.startTracking(isdrive);
+  this.speedService.startTracking(isdrive, inputData);
   this.speedService.initTrackUser();
   // send user notification
 
   this.showToast('Tracking has began with Boarding option');
 }
 
-async drivingTrack(status) {
+async drivingTrack(status, inputData) {
   const isdrive = (status === 'driving') ? true : false;
-  this.speedService.startTracking(isdrive);
+  this.speedService.startTracking(isdrive, inputData);
   this.speedService.initTrackUser();
   // send user notification
 

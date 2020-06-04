@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { SpeedService } from '../services/speed.service';
+import { SpeedData } from '../home/speedometer/speedometer.component';
 
 
 @Component({
@@ -20,16 +21,30 @@ export class StatisticPage implements OnInit {
 
   ionViewDidEnter() {
     const data = [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17];
-    const mdata = this.speedService.getStatsData(this.section);
-    console.log(mdata);
-    this.createBarChart(data);
+    const speedData = [];
+    const timeStamp = [];
+    const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+      const tomap = getdata as Array<SpeedData>;
+
+      tomap.map( md => {
+        speedData.push(md.convSpeed);
+
+        const dtval = new Date(md.timestamp).toLocaleTimeString();
+
+        timeStamp.push(dtval);
+
+      } );
+      this.createBarChart(speedData, timeStamp);
+    }) ;
+
   }
 
-  createBarChart(dispaydata) {
+  createBarChart(dispaydata, label) {
+    console.log(dispaydata, label);
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data:   {
-        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
+        labels: [label],
         datasets: [{
           label: 'Speed',
           data: dispaydata,
@@ -44,11 +59,12 @@ export class StatisticPage implements OnInit {
             barPercentage: 0.3,
             gridLines: {
                  display: false
-            }
+            },
+            pointLabels: { fontSize: 10 }
          }],
           yAxes: [{
             ticks: {
-              beginAtZero: false
+              beginAtZero: true
             },
             gridLines: {
               display: false
@@ -61,7 +77,10 @@ export class StatisticPage implements OnInit {
 
 
 
+
   ngOnInit() {
+    this.speedService.initTrackUser();
+
   }
 
 
@@ -76,23 +95,60 @@ export class StatisticPage implements OnInit {
       case 'day': {
 
       const data = [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17];
+      const speedData = [];
+      const timeStamp = [];
+      const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+        const tomap = getdata as Array<SpeedData>;
 
-      // this.createBarChart(data);
+        tomap.map( md => {
+          speedData.push(md.convSpeed);
+
+          const dtval = new Date(md.timestamp).toLocaleTimeString();
+
+          timeStamp.push(dtval);
+
+        } );
+        this.createBarChart(speedData, timeStamp);
+      }) ;
       break;
       }
       case 'week': {
         const data = [2.5, 10, 15, 6.9, 9.9, 3.5, 8, 4];
+        const speedData = [];
+        const timeStamp = [];
+        const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+          const tomap = getdata as Array<SpeedData>;
 
-        this.createBarChart(data);
-        // const mdata = this.speedService.getStatsData(this.section);
-        // console.log(mdata);
+          tomap.map( md => {
+            speedData.push(md.convSpeed);
+
+            const dtval = new Date(md.timestamp).getDay();
+
+            timeStamp.push(dtval);
+
+          } );
+          this.createBarChart(speedData, timeStamp);
+        }) ;
+
         break;
       }
       case 'month': {
         const data =  [5, 15, 15, 18, 9, 3, 2, 1];
-        this.createBarChart(data);
-        // const mdata = this.speedService.getStatsData(this.section);
-        // console.log(mdata);
+        const speedData = [];
+        const timeStamp = [];
+        const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+          const tomap = getdata as Array<SpeedData>;
+
+          tomap.map( md => {
+            speedData.push(md.convSpeed);
+
+            const dtval = new Date(md.timestamp).getMonth();
+
+            timeStamp.push(dtval);
+
+          } );
+          this.createBarChart(speedData, timeStamp);
+        }) ;
         break;
       }
       default: {
