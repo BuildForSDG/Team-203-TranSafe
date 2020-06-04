@@ -67,7 +67,7 @@ export class StatisticPage implements OnInit {
 
   // function to change segment value on segment button clicked to change statistic type
  segmentChanged(event) {
-    console.log(event.detail.value);
+
     this.section = event.detail.value;
 
 
@@ -77,22 +77,22 @@ export class StatisticPage implements OnInit {
 
       const data = [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17];
 
-      this.createBarChart(data);
+      // this.createBarChart(data);
       break;
       }
       case 'week': {
         const data = [2.5, 10, 15, 6.9, 9.9, 3.5, 8, 4];
 
         this.createBarChart(data);
-        const mdata = this.speedService.getStatsData(this.section);
-        console.log(mdata);
+        // const mdata = this.speedService.getStatsData(this.section);
+        // console.log(mdata);
         break;
       }
       case 'month': {
         const data =  [5, 15, 15, 18, 9, 3, 2, 1];
         this.createBarChart(data);
-        const mdata = this.speedService.getStatsData(this.section);
-        console.log(mdata);
+        // const mdata = this.speedService.getStatsData(this.section);
+        // console.log(mdata);
         break;
       }
       default: {

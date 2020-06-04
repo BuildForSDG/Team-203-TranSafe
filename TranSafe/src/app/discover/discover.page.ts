@@ -36,17 +36,15 @@ export class DiscoverPage implements OnInit {
 
   ionViewWillEnter() {
 
-    console.log('HHHHHHHH');
-
     // this.speedService.loadMap();
     if (this.speedService.isTracking) {
 
-    console.log('HHHHHHHH');
+
     // this.speedService.initTrackUser();
 
     // Update Map marker on every change
     this.speedService.getDataRealTime().subscribe(locations => {
-          console.log(locations);
+
           this.updateMap(locations);
         });
 
@@ -96,7 +94,7 @@ updateMap(locations) {
 
 
 mapclick(event: google.maps.MouseEvent) {
-  console.log(event);
+
 }
 
 }

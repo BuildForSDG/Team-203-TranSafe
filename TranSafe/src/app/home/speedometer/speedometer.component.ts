@@ -85,7 +85,7 @@ export class SpeedometerComponent implements OnInit {
   segmentChanged(event) {
 
     this.isDriving = event.detail.value;
-    console.log(this.isDriving);
+
   }
 
 
