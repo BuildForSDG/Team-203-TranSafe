@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'user-profile',
     loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
+  {
+    path: 'track',
+    loadChildren: () => import('./modal/track/track.module').then( m => m.TrackPageModule)
+  },
 
 
 
