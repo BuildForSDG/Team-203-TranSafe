@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 const { Geolocation } = Plugins;
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, IonDatetime } from '@ionic/angular';
 declare var google;
 
 
@@ -33,7 +33,8 @@ latLngResult;
  // Firebase Data
  locations: Observable<any>;
  locationsCollection: AngularFirestoreCollection<any>;
-
+ statisticCollection: AngularFirestoreCollection<any>;
+ statistics: Observable<any>;
 
   isTracking = false;
   watch: string;
@@ -45,6 +46,7 @@ latLngResult;
               private platform: Platform) { }
 
   initTrackUser() {
+
     this.afAuth.user.subscribe(user => {
 
       console.log(user.uid);
@@ -52,8 +54,11 @@ latLngResult;
         `speed/${user.uid}/track`,
         ref => ref.orderBy('timestamp', 'desc').limit(1)
       );
+
     });
-    console.log('YYYYYYY1');
+
+
+
      // Make sure we also get the Firebase item ID!
     this.locations = this.locationsCollection
     .snapshotChanges()
@@ -90,8 +95,78 @@ getDataRealTime() {
       // Update Map marker on every change
      return this.locations;
 }
+
+
+getStatsData(type) {
+
+  this.afAuth.user.subscribe(user => {
+
+
+     // get data from server and feed to chart depending on display type
+    switch (type) {
+      case 'day': {
+
+        this.statisticCollection = this.afs.collection(
+          `speed/${user.uid}/track`,
+          ref => ref.orderBy('timestamp', 'desc').where('timestamp', '<', Math.floor(Date.now() / 1000)).limit(20)
+        );
+        break;
+      }
+      case 'week': {
+
+        const date = new Date();
+        const weekDay = new Date(date.getFullYear(), date.getMonth(), 7 - date.getDay());
+        this.statisticCollection = this.afs.collection(
+          `speed/${user.uid}/track`,
+          ref => ref.orderBy('timestamp', 'desc')
+          .where('timestamp', '>', Math.floor(weekDay.getTime() / 1000))
+          .limit(20)
+        );
+        break;
+      }
+      case 'month': {
+
+        const date = new Date();
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        this.statisticCollection = this.afs.collection(
+          `speed/${user.uid}/track`,
+          ref => ref.orderBy('timestamp', 'desc')
+          .where('timestamp', '>', Math.floor(firstDay.getTime() / 1000))
+          .where('timestamp', '<', Math.floor(lastDay.getTime() / 1000))
+          .limit(30)
+        );
+
+        break;
+      }
+      default: {
+         break;
+      }
+   }
+
+
+
+
+
+  });
+
+
+  this.statistics = this.statisticCollection
+  .snapshotChanges()
+  .pipe(map(actions =>
+      actions.map(a => {
+        console.log( a.payload.doc.data());
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+    ));
+
+  return this.statistics;
+}
+
   // Save a new location to Firebase and center the map
-  async addNewLocation(lat, lng, timestamp, speed, heading) {
+async addNewLocation(lat, lng, timestamp, speed, heading) {
   // get the location type and compare to speed limits
 
 
