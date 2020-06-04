@@ -14,6 +14,7 @@ export interface SpeedData {
     overSpeed: boolean;
     speedLimit: number;
     timestamp: string;
+    isdriving: boolean;
 
 }
 
@@ -61,7 +62,7 @@ export class SpeedometerComponent implements OnInit {
           text: 'Boarding, Begin Tracking',
           handler: (blah) => {
             this.isBeginTrack = true;
-            this.boardingTrack();
+            this.boardingTrack('boarding');
             this.updateBtnText = 'Stop';
             this.updateCurrentSpeed();
           }
@@ -70,7 +71,7 @@ export class SpeedometerComponent implements OnInit {
           text: 'Driving, Begin Tracking',
           handler: () => {
             this.isBeginTrack = true;
-            this.drivingTrack();
+            this.drivingTrack('driving');
             this.updateBtnText = 'Stop';
             this.updateCurrentSpeed();
           }
@@ -97,7 +98,7 @@ export class SpeedometerComponent implements OnInit {
       if ( data.convSpeed !== null) {
         const radian = data.convSpeed;
         this.speedlmt = data.speedLimit;
-        this.currentSpeed.nativeElement.style.transform = `rotate(${ radian}deg)`;
+        this.currentSpeed.nativeElement.style.transform = `rotate(${radian + 180}deg)`;
       }
 
     });
@@ -105,16 +106,18 @@ export class SpeedometerComponent implements OnInit {
   }
 
 
-async boardingTrack() {
-  this.speedService.startTracking();
+async boardingTrack(status) {
+  const isdrive = (status === 'driving') ? true : false;
+  this.speedService.startTracking(isdrive);
   this.speedService.initTrackUser();
   // send user notification
 
   this.showToast('Tracking has began with Boarding option');
 }
 
-async drivingTrack() {
-  this.speedService.startTracking();
+async drivingTrack(status) {
+  const isdrive = (status === 'driving') ? true : false;
+  this.speedService.startTracking(isdrive);
   this.speedService.initTrackUser();
   // send user notification
 

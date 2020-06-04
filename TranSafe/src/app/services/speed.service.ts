@@ -76,11 +76,12 @@ latLngResult;
 
   }
 
-startTracking() {
+startTracking(isdriving) {
     this.isTracking = true;
     this.watch = Geolocation.watchPosition({}, (position, err) => {
       if (position) {
         this.addNewLocation(
+          isdriving,
           position.coords.latitude,
           position.coords.longitude,
           position.timestamp,
@@ -166,7 +167,7 @@ getStatsData(type) {
 }
 
   // Save a new location to Firebase and center the map
-async addNewLocation(lat, lng, timestamp, speed, heading) {
+async addNewLocation(isdriving, lat, lng, timestamp, speed, heading) {
   // get the location type and compare to speed limits
 
 
@@ -180,6 +181,7 @@ async addNewLocation(lat, lng, timestamp, speed, heading) {
   const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
   this.locationsCollection.add({
+    isdriving,
     lat,
     lng,
     timestamp,

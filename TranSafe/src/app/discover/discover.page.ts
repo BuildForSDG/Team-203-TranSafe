@@ -1,6 +1,7 @@
 import {  Component, OnInit, ViewChild  } from '@angular/core';
 import { SpeedService } from '../services/speed.service';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
+import { SpeedData } from '../home/speedometer/speedometer.component';
 
 
 
@@ -73,15 +74,11 @@ updateMap(locations) {
       lat: loc.lat,
       lng: loc.lng,
     };
-
+    const data = locations as SpeedData;
+    const isdrive = (data.isdriving) ? 'Driving' : 'Boadring';
     this.markers.push({
       position: latLng,
-      label: {
-        color: 'red',
-        text: 'Marker label ' + (this.markers.length + 1),
-      },
-      title: 'Marker title ' + (this.markers.length + 1),
-      options: { animation: google.maps.Animation.BOUNCE },
+      options: { icon: (isdrive === 'Driving') ? '../assets/map/car_2.png' : '../assets/map/user.png'},
     });
 
 
