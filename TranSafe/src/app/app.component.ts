@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { MenuController } from '@ionic/angular';
 
-import { UserSpeedingService } from './services/user-speeding.service';
+
 import { FirebaseAuthenticationService } from './services/firebase-authentication.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RefData } from './user-profile/user-profile.page';
@@ -26,12 +26,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private menuCtrl: MenuController,
-    private userSpeeding: UserSpeedingService,
     private authService: FirebaseAuthenticationService,
     private auth0: AngularFireAuth
   ) {
     this.initializeApp();
-    this.userSpeeding.watchPosition();
   }
 
   // tslint:disable-next-line:use-lifecycle-interface
