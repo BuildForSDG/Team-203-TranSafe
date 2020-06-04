@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
+import { SpeedService } from '../services/speed.service';
 
 
 @Component({
@@ -14,12 +15,13 @@ export class StatisticPage implements OnInit {
   colorArray: any;
 
   section = 'day';
-  constructor() { }
+  constructor(private speedService: SpeedService) { }
 
 
   ionViewDidEnter() {
     const data = [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17];
-
+    const mdata = this.speedService.getStatsData(this.section);
+    console.log(mdata);
     this.createBarChart(data);
   }
 
@@ -82,13 +84,15 @@ export class StatisticPage implements OnInit {
         const data = [2.5, 10, 15, 6.9, 9.9, 3.5, 8, 4];
 
         this.createBarChart(data);
+        const mdata = this.speedService.getStatsData(this.section);
+        console.log(mdata);
         break;
       }
       case 'month': {
         const data =  [5, 15, 15, 18, 9, 3, 2, 1];
-
-
         this.createBarChart(data);
+        const mdata = this.speedService.getStatsData(this.section);
+        console.log(mdata);
         break;
       }
       default: {
