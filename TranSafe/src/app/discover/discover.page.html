@@ -9,7 +9,24 @@
 </ion-toolbar>
 
 
-<google-map height="100vh" width="100%"></google-map>
+<google-map
+[zoom]="zoom"
+[center]="center"
+height="100%"
+width="100%"
+(mapClick)="mapclick($event)"
+>
+
+<map-marker
+*ngFor="let marker of markers"
+[position]="marker.position"
+[label]="marker.label"
+[title]="marker.title"
+[options]="marker.options"
+>
+</map-marker>
+
+</google-map>
 
 <ion-fab style="position:absolute; top:60%; right:0; margin:10px">
   <ion-fab-button color="light"><ion-icon name="information-circle-outline"></ion-icon></ion-fab-button>

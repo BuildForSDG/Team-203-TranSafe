@@ -32,15 +32,18 @@ ion-toolbar {
   ion-card {
     background: white;
     border-radius: 15px;
+    margin: 20px;
   }
 
   .notification {
       font-size: 15px;
       color: black;
+      margin: 10px;
+      font-weight: bold;
   }
 
   .notification p {
-      font-size: 10px;
+      font-size: 14px;
   }
 
   ion-toggle {
@@ -51,8 +54,17 @@ ion-toolbar {
   .driver {
     font-size: 15px;
     color: black;
+    margin: 10px;
+    font-weight: bold;
   }
 
   .driver p {
-    font-size: 10px;
+    font-size: 14px;
+
+  }
+
+
+  ion-button {
+    --background: transparent!important;
+    --box-shadow:0;
   }

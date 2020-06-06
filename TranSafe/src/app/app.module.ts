@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AppUpdateService } from './services/app-update.service';
+import { NativeGeocoder, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -55,9 +56,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   providers: [
     StatusBar,
     SplashScreen,
-    AppUpdateService,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {}},
+    { provide: AppUpdateService},
     { provide: BUCKET, useValue: 'gs://team-203-transafe.appspot.com' }
   ],
   bootstrap: [AppComponent]

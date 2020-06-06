@@ -15,7 +15,6 @@ constructor(private readonly updates: SwUpdate, public alertController: AlertCon
 async showAppUpdateAlert() {
   const header = 'App Update available';
   const message = 'Choose Ok to update';
-  const action = this.doAppUpdate;
   const caller = this;
   // Use MatDialog or ionicframework's AlertController or similar
 

@@ -15,4 +15,5 @@ export class HomenavPage implements OnInit {
     this.router.navigateByUrl('homenav/home');
   }
 
+
 }
