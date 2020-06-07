@@ -34,8 +34,6 @@ export class NotificationPage implements OnInit {
 
       this.setData = getData;
 
-
-
     });
   }
 

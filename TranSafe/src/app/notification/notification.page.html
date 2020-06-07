@@ -4,9 +4,6 @@
 
 <ion-content>
   <ion-list *ngIf="setData">
-
-
-
     <ion-item no-lines *ngFor="let item of setData">
       <ion-card>
         <ion-grid>
@@ -19,7 +16,7 @@
             </ion-col>
             <ion-col>
               <ion-row>
-                <ion-badge color="success">{{item.Speed}}Km/hr</ion-badge>
+                <ion-badge color="danger">{{item.Speed}}Km/hr</ion-badge>
                 <p style="margin-top:10px;">{{item.Timestamp}}</p>
               </ion-row>
             </ion-col>
@@ -32,6 +29,8 @@
 
 
   </ion-list>
+
+
 
 
 </ion-content>
