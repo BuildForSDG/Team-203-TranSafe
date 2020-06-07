@@ -35,7 +35,11 @@ export class HomePage implements OnInit {
 
   userDocs: Observable<any>;
 
-  @ViewChild('gauge', {static: true}) guage: GaugeChartComponent;
+
+  @ViewChild(GaugeChartComponent)
+  guage: GaugeChartComponent;
+
+
   isDriving;
   updateBtnText = 'Track';
   isBeginTrack = false;
@@ -43,7 +47,7 @@ export class HomePage implements OnInit {
 
 
 public canvasWidth = 300;
-public needleValue = 65;
+public needleValue = 5;
 public centralLabel = '';
 public options = {
     hasNeedle: true,
@@ -66,13 +70,9 @@ ngOnInit() {
 
 }
 
-ionViewDidEnter() {
-  this.guage.needleValue = 20;
-  console.log('HEEEEEEY');
 
-  console.log(this.guage.gaugeArea);
-}
-  async presentAlertConfirm() {
+
+async presentAlertConfirm() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Start Tracking',
@@ -101,7 +101,7 @@ ionViewDidEnter() {
           handler: (data) => {
             const inputData = data.vhplatenumber;
             this.isBeginTrack = true;
-            this.boardingTrack('boarding', inputData);
+            this.Track('boarding', inputData);
             this.updateBtnText = 'Stop';
 
           }
@@ -112,7 +112,7 @@ ionViewDidEnter() {
 
             const inputData = data.vhplatenumber;
             this.isBeginTrack = true;
-            this.drivingTrack('driving', inputData);
+            this.Track('driving', inputData);
             this.updateBtnText = 'Stop';
 
           }
@@ -123,7 +123,7 @@ ionViewDidEnter() {
     await alert.present();
   }
 
-  segmentChanged(event) {
+segmentChanged(event) {
 
     this.isDriving = event.detail.value;
 
@@ -133,23 +133,28 @@ ionViewDidEnter() {
 
 
 
-
-async boardingTrack(status, inputData) {
+async Track(status, inputData) {
   const isdrive = (status === 'driving') ? true : false;
   this.speedService.startTracking(isdrive, inputData);
   this.speedService.initTrackUser();
-  // send user notification
+  this.guage.needleValue = 20;
+  console.log('HEEEEEEY');
 
-  this.showToast('Tracking has began with Boarding option');
-}
+  // get speed value and update
+  this.speedService.getDataRealTime()
+  .subscribe(location => {
+    const getData = location[0] as SpeedData;
+    console.log(getData.convSpeed);
 
-async drivingTrack(status, inputData) {
-  const isdrive = (status === 'driving') ? true : false;
-  this.speedService.startTracking(isdrive, inputData);
-  this.speedService.initTrackUser();
-  // send user notification
+    this.guage.needleValue = getData.convSpeed || 0;
 
-  this.showToast('Tracking has began with Driving option');
+    this.guage.bottomLabel = `Current Speed: ${getData.convSpeed.toString()}`;
+    this.speedlmt = getData.speedLimit;
+    this.guage.drawChart(true);
+
+
+  });
+
 }
 
 
