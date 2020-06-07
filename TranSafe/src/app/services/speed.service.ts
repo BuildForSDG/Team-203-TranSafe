@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 const { Geolocation } = Plugins;
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { Platform, IonDatetime } from '@ionic/angular';
+import { SpeedData } from '../home/home.page';
 declare var google;
 
 
@@ -39,9 +40,10 @@ latLngResult;
  getDayStats: Observable<any>;
  getWeekStats: Observable<any>;
  getMonthStats: Observable<any>;
-
- userTrackData: Observable<any>;
- userTrackCollection: AngularFirestoreCollection<any>;
+ getOtherLocationCollection: AngularFirestoreCollection<any>;
+ risk;
+ speedLimitJumpCnt = 0;
+ totalSpeedVals = 0;
 
   isTracking = false;
   watch: string;
@@ -56,16 +58,17 @@ latLngResult;
 
     this.afAuth.user.subscribe(user => {
     // Set all the user track collection
-      this.userTrackCollection = this.afs.collection(
-        `speed/${user.uid}/track`,
-          ref => ref.orderBy('timestamp', 'desc')
-      );
+
 
       this.locationsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
         ref => ref.orderBy('timestamp', 'desc').limit(1)
       );
 
+      this.getOtherLocationCollection = this.afs.collection(
+        `speed/${user.uid}/track`,
+        ref => ref.orderBy('timestamp', 'desc')
+      );
 
       this.dayStatsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
@@ -173,11 +176,6 @@ startTracking(isdriving, vehicleNumber) {
     });
   }
 
-// Get the user track collection
-
-getUserTrackCollection() {
-  return this.userTrackCollection.doc ;
-}
 
 getDataRealTime() {
       // Update Map marker on every change
@@ -222,20 +220,94 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
   const convSpeed = (speed * 18) / 5;
   const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
-  this.locationsCollection.add({
-    vehicleNumber,
-    isdriving,
-    lat,
-    lng,
-    timestamp,
-    convSpeed,
-    heading,
-    speedLimit,
-    overSpeed
+  // risk level
+  // const riskLevel = (overSpeed) ?
+
+
+
+  this.getOtherLocationCollection
+  .snapshotChanges()
+  .subscribe(dt => {
+
+     dt.forEach( result => {
+
+          const refDoc = result.payload.doc;
+
+          if (refDoc.exists) {
+
+             const servData = refDoc.data() as SpeedData;
+
+             const isSpeedover = servData.overSpeed;
+             this.speedLimitJumpCnt = (isSpeedover) ? this.speedLimitJumpCnt + 1 : this.speedLimitJumpCnt;
+          }
+      });
+     this.totalSpeedVals = dt.length;
+
+
+     this.risk = (this.speedLimitJumpCnt / this.totalSpeedVals) * 100;
+
+  // Get safey status
+     const safey = this.getRiskSafetyStatus(this.risk);
+
+     const risk = this.risk;
+     const speedLimitJumpCnt = this.speedLimitJumpCnt;
+
+     this.locationsCollection.add({
+                                vehicleNumber,
+                                isdriving,
+                                lat,
+                                lng,
+                                timestamp,
+                                convSpeed,
+                                heading,
+                                speedLimit,
+                                overSpeed,
+                                risk,
+                                speedLimitJumpCnt,
+                                safey
+                              });
+
   });
 
 
+
+
+
+
 }
+
+
+
+
+getRiskSafetyStatus(riskLevel): string {
+
+      if (riskLevel < 10) {
+        return 'SAFEST';
+
+      } else if (riskLevel <= 20) {
+        return 'SAFER';
+
+      } else if (riskLevel <= 30 ) {
+        return 'SAFE';
+
+      } else if (riskLevel <= 40 ) {
+        return 'LESS SAFE';
+
+      } else if (riskLevel <= 50 ) {
+        return 'UNSAFE';
+
+      } else if (riskLevel <= 60 ) {
+        return 'VERY UNSAFE';
+
+      } else if (riskLevel <= 70 ) {
+        return 'DANGEROUS';
+
+      } else if (riskLevel <= 100 ) {
+        return 'FATAL';
+      }
+
+    }
+
 
 
 

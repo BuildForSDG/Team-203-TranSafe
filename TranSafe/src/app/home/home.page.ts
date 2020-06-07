@@ -15,6 +15,9 @@ export interface SpeedData {
   speedLimit: number;
   timestamp: string;
   isdriving: boolean;
+  risk: number;
+  speedLimitJumpCnt: number;
+  safey: string;
 
 }
 
@@ -44,6 +47,9 @@ export class HomePage implements OnInit {
   updateBtnText = 'Track';
   isBeginTrack = false;
   speedlmt = 60;
+  safety = 'SAFEST';
+  risk = 0;
+  numOverSpeed = 0;
 
 
 public canvasWidth = 300;
@@ -138,19 +144,23 @@ async Track(status, inputData) {
   this.speedService.startTracking(isdrive, inputData);
   this.speedService.initTrackUser();
   this.guage.needleValue = 20;
-  console.log('HEEEEEEY');
+
 
   // get speed value and update
   this.speedService.getDataRealTime()
   .subscribe(location => {
     const getData = location[0] as SpeedData;
-    console.log(getData.convSpeed);
 
     this.guage.needleValue = getData.convSpeed || 0;
 
     this.guage.bottomLabel = `Current Speed: ${getData.convSpeed.toString()}`;
     this.speedlmt = getData.speedLimit;
     this.guage.drawChart(true);
+
+
+    this.safety = getData.safey;
+    this.risk = getData.risk;
+    this.numOverSpeed = getData.speedLimitJumpCnt;
 
 
   });
