@@ -34,6 +34,7 @@ export class StatisticPage implements OnInit {
         timeStamp.push(dtval);
 
       } );
+
       this.createBarChart(speedData, timeStamp);
     }) ;
 
@@ -44,7 +45,7 @@ export class StatisticPage implements OnInit {
     this.bars = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data:   {
-        labels: [label],
+        labels: label,
         datasets: [{
           label: 'Speed',
           data: dispaydata,
@@ -59,8 +60,7 @@ export class StatisticPage implements OnInit {
             barPercentage: 0.3,
             gridLines: {
                  display: false
-            },
-            pointLabels: { fontSize: 10 }
+            }
          }],
           yAxes: [{
             ticks: {
@@ -94,7 +94,7 @@ export class StatisticPage implements OnInit {
     switch (this.section) {
       case 'day': {
 
-      const data = [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17];
+      const data = [2.5, 3.8, 5, 6.9, 6.9];
       const speedData = [];
       const timeStamp = [];
       const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {

@@ -55,7 +55,7 @@ latLngResult;
   initTrackUser() {
 
     this.afAuth.user.subscribe(user => {
-    //Set all the user track collection
+    // Set all the user track collection
       this.userTrackCollection = this.afs.collection(
         `speed/${user.uid}/track`,
           ref => ref.orderBy('timestamp', 'desc')
@@ -104,7 +104,7 @@ latLngResult;
 
      // Make sure we also get the Firebase item ID!
 
-    
+
 
     this.locations = this.locationsCollection
     .snapshotChanges()
@@ -173,10 +173,10 @@ startTracking(isdriving, vehicleNumber) {
     });
   }
 
-//Get the user track collection 
+// Get the user track collection
 
-getUserTrackCollection(){
-  return this.userTrackCollection.docs;
+getUserTrackCollection() {
+  return this.userTrackCollection.doc ;
 }
 
 getDataRealTime() {
