@@ -42,6 +42,8 @@ latLngResult;
  getMonthStats: Observable<any>;
  getOtherLocationCollection: AngularFirestoreCollection<any>;
  OtherCOllection: Observable<any>;
+ notificationCollection: AngularFirestoreCollection<any>;
+ notifications: Observable<any>;
 
   isTracking = false;
   watch: string;
@@ -55,6 +57,23 @@ latLngResult;
   initTrackUser() {
 
     this.afAuth.user.subscribe(user => {
+
+      // notifications get
+
+      this.notificationCollection = this.afs.collection(`notifications/${user.uid}/notify`);
+
+
+
+      this.notifications = this.notificationCollection.
+      snapshotChanges()
+      .pipe(map(actions =>
+        actions.map(a => {
+
+          const data = a.payload.doc.data();
+
+          return {  ...data };
+        })
+      ));
     // Set all the user track collection
 
 
@@ -212,6 +231,10 @@ startTracking(isdriving, vehicleNumber) {
   }
 
 
+getNotifications() {
+  return this.notifications;
+}
+
 getDataRealTime() {
       // Update Map marker on every change
      return this.locations;
@@ -263,8 +286,9 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
   const speedLimit = this.searchRoadType(getName);
 
   const convSpeed = (speed * 18) / 5;
-  const overSpeed = (speedLimit < convSpeed) ? true : false ;
+  // const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
+  const overSpeed = true;
 
 
   this.locationsCollection.add({
@@ -280,10 +304,35 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
   });
 
 
+  if (overSpeed) {
+    this.setNotification(
+                        timestamp,
+                        convSpeed,
+                        'Speed Limit Exceeded',
+                        vehicleNumber);
+  }
 
 }
 
 
+setNotification(time, speed, message, vehiclenumber) {
+  this.afAuth.user.subscribe(user => {
+    // Set all the user track collection
+       const convTime = new Date(time).toUTCString();
+       const putdat = {
+         Timestamp: convTime,
+         Speed: speed,
+         Message: message,
+         VhcNumber: vehiclenumber
+
+       };
+
+       this.afs.collection(`notifications/${user.uid}/notify`)
+       .add(putdat);
+
+
+      });
+}
 
 
 getRiskSafetyStatus(riskLevel): string {

@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { SpeedService } from '../services/speed.service';
+
+export interface NotifData {
+  Message: string;
+  Speed: number;
+  Timestamp: string;
+  VhcNumber: string;
+}
+
 
 @Component({
   selector: 'app-notification',
@@ -7,9 +16,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationPage implements OnInit {
 
-  constructor() { }
+  constructor(private speedService: SpeedService) { }
 
+  setData: NotifData;
   ngOnInit() {
+
+  }
+
+  ionViewDidEnter() {
+
+    this.speedService
+    .getNotifications()
+    .subscribe( data => {
+
+      const getData = data as NotifData;
+
+
+      this.setData = getData;
+
+
+
+    });
   }
 
 }

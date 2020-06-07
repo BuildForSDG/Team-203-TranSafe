@@ -3,8 +3,11 @@
 </ion-toolbar>
 
 <ion-content>
-  <ion-list>
-    <ion-item no-lines>
+  <ion-list *ngIf="setData">
+
+
+
+    <ion-item no-lines *ngFor="let item of setData">
       <ion-card>
         <ion-grid>
           <ion-row>
@@ -12,103 +15,18 @@
               <ion-icon name="speedometer-sharp"></ion-icon>
             </ion-col>
             <ion-col>
-              <p>Speed Limit Exceeded</p>
+              <p>{{item.Message}}</p>
             </ion-col>
             <ion-col>
               <ion-row>
-                <ion-badge color="success">100Km/hr</ion-badge>
-                <p style="margin-top:10px;">30 mins ago</p>
+                <ion-badge color="success">{{item.Speed}}Km/hr</ion-badge>
+                <p style="margin-top:10px;">{{item.Timestamp}}</p>
               </ion-row>
             </ion-col>
           </ion-row>
         </ion-grid>
        </ion-card>
   </ion-item>
-
-  <ion-item no-lines>
-    <ion-card>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-icon name="speedometer-sharp"></ion-icon>
-          </ion-col>
-          <ion-col>
-            <p>Speed Limit Exceeded</p>
-          </ion-col>
-          <ion-col>
-            <ion-row>
-              <ion-badge color="danger">150Km/hr</ion-badge>
-              <p style="margin-top:10px;">45 mins ago</p>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-     </ion-card>
-</ion-item>
-
-<ion-item no-lines>
-  <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="speedometer-sharp"></ion-icon>
-        </ion-col>
-        <ion-col>
-          <p>Speed Limit Exceeded</p>
-        </ion-col>
-        <ion-col>
-          <ion-row>
-            <ion-badge color="warning">120Km/hr</ion-badge>
-            <p style="margin-top:10px;">45 mins ago</p>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-   </ion-card>
-</ion-item>
-
-<ion-item no-lines>
-  <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="speedometer-sharp"></ion-icon>
-        </ion-col>
-        <ion-col>
-          <p>Speed Limit Exceeded</p>
-        </ion-col>
-        <ion-col>
-          <ion-row>
-            <ion-badge color="danger">150Km/hr</ion-badge>
-            <p style="margin-top:10px;">45 mins ago</p>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-   </ion-card>
-</ion-item>
-
-<ion-item no-lines>
-  <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="speedometer-sharp"></ion-icon>
-        </ion-col>
-        <ion-col>
-          <p>Speed Limit Exceeded</p>
-        </ion-col>
-        <ion-col>
-          <ion-row>
-            <ion-badge color="secondary">130Km/hr</ion-badge>
-            <p style="margin-top:10px;">20hr ago</p>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-   </ion-card>
-</ion-item>
-
 
 
 

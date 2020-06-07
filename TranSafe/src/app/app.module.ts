@@ -60,7 +60,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {}},
     { provide: AppUpdateService},
-    { provide: BUCKET, useValue: 'gs://team-203-transafe.appspot.com' }
+    { provide: BUCKET, useValue: 'gs://transafe-a15f3.appspot.com/' }
   ],
   bootstrap: [AppComponent]
 })
