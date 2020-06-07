@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { SpeedService } from '../services/speed.service';
-import { SpeedData } from '../home/speedometer/speedometer.component';
+import { SpeedData } from '../home/home.page';
+
 
 
 @Component({

@@ -1,7 +1,7 @@
 import {  Component, OnInit, ViewChild  } from '@angular/core';
 import { SpeedService } from '../services/speed.service';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
-import { SpeedData } from '../home/speedometer/speedometer.component';
+import { SpeedData } from '../home/home.page';
 
 
 
@@ -76,7 +76,7 @@ updateMap(locations) {
     const isdrive = (data.isdriving) ? 'Driving' : 'Boadring';
     this.markers.push({
       position: latLng,
-      options: { icon: (isdrive === 'Driving') ? '../assets/map/car_2.png' : '../assets/map/user.png'},
+      options: { icon: (isdrive === 'Driving') ? '../assets/map/car_2.png' : '../assets/map/car_2.png'},
     });
 
 

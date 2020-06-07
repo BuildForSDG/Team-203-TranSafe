@@ -10,8 +10,16 @@
   <ion-grid >
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <ion-card>
-          <app-speedometer></app-speedometer>
+        <ion-card class="speedometer">
+          <rg-gauge-chart
+              #guage
+              [canvasWidth]="canvasWidth"
+              [needleValue]="needleValue"
+              [centralLabel]="centralLabel"
+              [options]="options"></rg-gauge-chart>
+              <ion-label class="speed-value">Speed Limit : <strong>{{speedlmt}}</strong></ion-label>
+              <ion-button color="primary" [ngClass]="{'my-css-class': updateBtnText === 'Stop'}"  class="track-button" (click)="startTrackUser()">{{updateBtnText}}</ion-button>
+
         </ion-card>
       </ion-col>
     </ion-row>
