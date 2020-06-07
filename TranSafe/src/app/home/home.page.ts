@@ -17,7 +17,7 @@ export interface SpeedData {
   isdriving: boolean;
   risk: number;
   speedLimitJumpCnt: number;
-  safey: string;
+  safety: string;
 
 }
 
@@ -150,6 +150,7 @@ async Track(status, inputData) {
   this.speedService.getDataRealTime()
   .subscribe(location => {
     const getData = location[0] as SpeedData;
+    console.log(getData);
 
     this.guage.needleValue = getData.convSpeed || 0;
 
@@ -158,10 +159,19 @@ async Track(status, inputData) {
     this.guage.drawChart(true);
 
 
-    this.safety = getData.safey;
-    this.risk = getData.risk;
-    this.numOverSpeed = getData.speedLimitJumpCnt;
 
+
+  });
+
+
+  // speed metrics
+  this.speedService.getOtherDataRealTime().subscribe( getd => {
+
+
+
+    this.safety = getd[0].safety;
+    this.risk = getd[0].risk;
+    this.numOverSpeed = getd[0].speedLimitJumpCnt;
 
   });
 

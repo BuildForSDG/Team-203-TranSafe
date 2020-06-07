@@ -41,9 +41,7 @@ latLngResult;
  getWeekStats: Observable<any>;
  getMonthStats: Observable<any>;
  getOtherLocationCollection: AngularFirestoreCollection<any>;
- risk;
- speedLimitJumpCnt = 0;
- totalSpeedVals = 0;
+ OtherCOllection: Observable<any>;
 
   isTracking = false;
   watch: string;
@@ -157,6 +155,43 @@ latLngResult;
             ));
 
 
+    let safety: string;
+    let risk: number;
+    let speedLimitJumpCnt = 0;
+    let totalSpeedVals = 0;
+
+    this.OtherCOllection =   this.getOtherLocationCollection
+   .snapshotChanges()
+   .pipe(map(actions =>
+
+     actions.map(a => {
+
+       const data = a.payload.doc.data();
+       const id = a.payload.doc.id;
+       if (a.payload.doc.exists) {
+         const isSpeedover = data.overSpeed;
+         speedLimitJumpCnt = (isSpeedover) ? speedLimitJumpCnt + 1 : speedLimitJumpCnt;
+
+       }
+
+       totalSpeedVals += 1;
+
+
+       risk = (speedLimitJumpCnt / totalSpeedVals) * 100;
+
+       // Get safey status
+       safety = this.getRiskSafetyStatus(risk);
+       const docLenth = actions.length;
+       return  {risk, speedLimitJumpCnt, safety, totalSpeedVals, docLenth};
+
+
+     })
+
+
+   ));
+
+
+
   }
 
 startTracking(isdriving, vehicleNumber) {
@@ -180,6 +215,10 @@ startTracking(isdriving, vehicleNumber) {
 getDataRealTime() {
       // Update Map marker on every change
      return this.locations;
+}
+
+getOtherDataRealTime() {
+  return this.OtherCOllection;
 }
 
 
@@ -206,6 +245,12 @@ getStatsData(type) {
 
 }
 
+
+async getSpeedMetrics() {
+  return this.OtherCOllection;
+}
+
+
   // Save a new location to Firebase and center the map
 async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, heading) {
   // get the location type and compare to speed limits
@@ -220,57 +265,19 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
   const convSpeed = (speed * 18) / 5;
   const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
-  // risk level
-  // const riskLevel = (overSpeed) ?
 
 
-
-  this.getOtherLocationCollection
-  .snapshotChanges()
-  .subscribe(dt => {
-
-     dt.forEach( result => {
-
-          const refDoc = result.payload.doc;
-
-          if (refDoc.exists) {
-
-             const servData = refDoc.data() as SpeedData;
-
-             const isSpeedover = servData.overSpeed;
-             this.speedLimitJumpCnt = (isSpeedover) ? this.speedLimitJumpCnt + 1 : this.speedLimitJumpCnt;
-          }
-      });
-     this.totalSpeedVals = dt.length;
-
-
-     this.risk = (this.speedLimitJumpCnt / this.totalSpeedVals) * 100;
-
-  // Get safey status
-     const safey = this.getRiskSafetyStatus(this.risk);
-
-     const risk = this.risk;
-     const speedLimitJumpCnt = this.speedLimitJumpCnt;
-
-     this.locationsCollection.add({
-                                vehicleNumber,
-                                isdriving,
-                                lat,
-                                lng,
-                                timestamp,
-                                convSpeed,
-                                heading,
-                                speedLimit,
-                                overSpeed,
-                                risk,
-                                speedLimitJumpCnt,
-                                safey
-                              });
-
+  this.locationsCollection.add({
+    vehicleNumber,
+    isdriving,
+    lat,
+    lng,
+    timestamp,
+    convSpeed,
+    heading,
+    speedLimit,
+    overSpeed
   });
-
-
-
 
 
 
