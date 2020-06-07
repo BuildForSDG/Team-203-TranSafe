@@ -196,7 +196,7 @@ latLngResult;
        totalSpeedVals += 1;
 
 
-       risk = (speedLimitJumpCnt / totalSpeedVals) * 100;
+       risk = speedLimitJumpCnt;
 
        // Get safey status
        safety = this.getRiskSafetyStatus(risk);
@@ -286,9 +286,9 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
   const speedLimit = this.searchRoadType(getName);
 
   const convSpeed = (speed * 18) / 5;
-  // const overSpeed = (speedLimit < convSpeed) ? true : false ;
+  const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
-  const overSpeed = true;
+
 
 
   this.locationsCollection.add({
