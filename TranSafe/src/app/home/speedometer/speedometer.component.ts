@@ -70,7 +70,7 @@ export class SpeedometerComponent implements OnInit {
             this.isBeginTrack = true;
             this.boardingTrack('boarding', inputData);
             this.updateBtnText = 'Stop';
-            this.updateCurrentSpeed();
+            this.getCurrentSpeedInfo();//this.updateCurrentSpeed();
           }
         }
         , {
@@ -81,7 +81,7 @@ export class SpeedometerComponent implements OnInit {
             this.isBeginTrack = true;
             this.drivingTrack('driving', inputData);
             this.updateBtnText = 'Stop';
-            this.updateCurrentSpeed();
+            this.getCurrentSpeedInfo();// this.updateCurrentSpeed();
           }
         }
       ]
@@ -96,13 +96,30 @@ export class SpeedometerComponent implements OnInit {
 
   }
 
+//Get the current speed
+getCurrentSpeedInfo() {
+
+  this.speedService.locationsCollection.onSnapshot(snapshot=>{
+    const docChanges = snapshot.docChanges();
+    const data = docChanges[0].doc.data();
+    const type = docChanges[0].type;
+    if (type=='added') { //check if new speed data was added
+      const radian = data.convSpeed ?? 0; // if speed is null return zero(0)
+      this.speedlmt = data.speedLimit;
+      this.currentSpeed.nativeElement.style.transform = `rotate(${radian + 180}deg)`;
+    }
+
+  });
+
+}
+
 
 // Every 30 degree is equivalent to 20km/h
   updateCurrentSpeed() {
 
     this.speedService.getDataRealTime().subscribe(locationsData => {
       const data = locationsData[0] as SpeedData;
-
+       console.log("updateCurrentSpeed " +data);
       if ( data.convSpeed !== null) {
         const radian = data.convSpeed;
         this.speedlmt = data.speedLimit;

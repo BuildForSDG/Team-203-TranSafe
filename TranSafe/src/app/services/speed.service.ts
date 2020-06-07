@@ -40,6 +40,9 @@ latLngResult;
  getWeekStats: Observable<any>;
  getMonthStats: Observable<any>;
 
+ userTrackData: Observable<any>;
+ userTrackCollection: AngularFirestoreCollection<any>;
+
   isTracking = false;
   watch: string;
 
@@ -52,7 +55,11 @@ latLngResult;
   initTrackUser() {
 
     this.afAuth.user.subscribe(user => {
-
+    //Set all the user track collection
+      this.userTrackCollection = this.afs.collection(
+        `speed/${user.uid}/track`,
+          ref => ref.orderBy('timestamp', 'desc')
+      );
 
       this.locationsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
@@ -62,7 +69,7 @@ latLngResult;
 
       this.dayStatsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
-        ref => ref.orderBy('timestamp', 'desc').where('timestamp', '>', Math.floor(Date.now() / 1000)).limit(20)
+        ref => ref.orderBy('timestamp', 'desc').where('timestamp', '>', Math.floor(Date.now() / 1000)).limit(5)
       );
 
 
@@ -72,7 +79,7 @@ latLngResult;
         `speed/${user.uid}/track`,
         ref => ref.orderBy('timestamp', 'desc')
         .where('timestamp', '>', Math.floor(weekDay.getTime() / 1000))
-        .limit(20)
+        .limit(5)
       );
 
 
@@ -85,7 +92,7 @@ latLngResult;
         ref => ref.orderBy('timestamp', 'desc')
         .where('timestamp', '>', Math.floor(firstDay.getTime() / 1000))
         .where('timestamp', '<', Math.floor(lastDay.getTime() / 1000))
-        .limit(30)
+        .limit(5)
       );
 
 
@@ -96,6 +103,9 @@ latLngResult;
 
 
      // Make sure we also get the Firebase item ID!
+
+    
+
     this.locations = this.locationsCollection
     .snapshotChanges()
     .pipe(map(actions =>
@@ -162,6 +172,12 @@ startTracking(isdriving, vehicleNumber) {
       }
     });
   }
+
+//Get the user track collection 
+
+getUserTrackCollection(){
+  return this.userTrackCollection.docs;
+}
 
 getDataRealTime() {
       // Update Map marker on every change
