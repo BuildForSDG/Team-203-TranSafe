@@ -142,7 +142,7 @@ Email:dianakerubo24@gmail.com
 
 5. FullName: Ernestina Tawiah  Github: ErnestinaTawiah Role: Front-End Developer
 Email:tawiah.ernestina.l@gmail.com
-6. FullName: Anold Quame  Github: Quame-Magma Role: Front-End Developer
+6. FullName: Anold Anyor  Github: Quame-Magma Role: Front-End Developer
 Email: anoldanyor@gmail.
 
 7. FullName: Ian Cecil Mawuli Akoto  Github: iancecilakoto@gmail.com Role:Full stack developer Email:iancecilakoto@gmail.com
