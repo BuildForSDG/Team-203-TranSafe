@@ -21,6 +21,8 @@ export class HomesignedinGuard implements CanActivate {
       if (!isSignedIn) {
         this.router.navigateByUrl('signup');
       } else {
+
+
         this.router.navigateByUrl('homenav');
       }
       return !!!isSignedIn;

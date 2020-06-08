@@ -60,6 +60,7 @@ latLngResult;
 
       // notifications get
 
+
       this.notificationCollection = this.afs.collection(`notifications/${user.uid}/notify`);
 
 

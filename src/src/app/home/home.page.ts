@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { GaugeChartComponent } from 'angular-gauge-chart';
 import { AlertController } from '@ionic/angular';
 import { Toast } from '@capacitor/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 export interface SpeedData {
   convSpeed: number;
@@ -67,16 +69,45 @@ public options = {
 };
 
   constructor(public speedService: SpeedService,
-              public alertController: AlertController) {}
+              public alertController: AlertController,
+              private afAuth: AngularFireAuth,
+              private router: Router) {}
 
 
 
 ngOnInit() {
+
+
+   this.afAuth.user.subscribe(user => {
+      if (!user) {
+        this.GoLogin();
+      }
+  });
    this.speedService.initTrackUser();
 
 }
 
+async GoLogin() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Sign Up',
+    message: '<ion-grid>\
+              <ion-row><ion-col><ion-text>You have to sign up to be able to use the app.\
+               <strong>Click on Sign Up to proceed</strong></ion-text>\ ',
+    buttons: [
+      {
+        text: 'Sign Up',
+        handler: () => {
+          this.router.navigateByUrl('signup');
 
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+
+}
 
 async presentAlertConfirm() {
     const alert = await this.alertController.create({
