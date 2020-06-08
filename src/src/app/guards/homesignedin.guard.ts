@@ -17,11 +17,10 @@ export class HomesignedinGuard implements CanActivate {
     state: RouterStateSnapshot): Promise<boolean> {
 
       const isSignedIn =  (await Storage.get({ key: 'signedIn' })).value;
-      console.log(isSignedIn);
+
       if (!isSignedIn) {
         this.router.navigateByUrl('signup');
       } else {
-
 
         this.router.navigateByUrl('homenav');
       }
