@@ -35,10 +35,10 @@ export class StatisticPage implements OnInit {
         timeStamp.push(dtval);
 
       } );
+      this.createBarChart(speedData, timeStamp);
 
-      
     }) ;
-    this.createBarChart(speedData, timeStamp);
+
   }
 
   createBarChart(dispaydata, label) {
@@ -108,10 +108,11 @@ export class StatisticPage implements OnInit {
           timeStamp.push(dtval);
 
         } );
+        this.createBarChart(speedData, timeStamp);
 
       }) ;
 
-      this.createBarChart(speedData, timeStamp);
+
 
       break;
       }
@@ -130,9 +131,8 @@ export class StatisticPage implements OnInit {
             timeStamp.push(dtval);
 
           } );
-
+          this.createBarChart(speedData, timeStamp);
         }) ;
-        this.createBarChart(speedData, timeStamp);
         break;
       }
       case 'month': {
@@ -150,9 +150,8 @@ export class StatisticPage implements OnInit {
             timeStamp.push(dtval);
 
           } );
-          
+          this.createBarChart(speedData, timeStamp);
         }) ;
-        this.createBarChart(speedData, timeStamp);
         break;
       }
       default: {
