@@ -286,7 +286,7 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
 
   const speedLimit = this.searchRoadType(getName);
 
-  const convSpeed = (speed * 18) / 5;
+  const convSpeed = Math.floor((speed * 18) / 5);
   const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
 
