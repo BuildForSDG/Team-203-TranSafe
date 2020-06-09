@@ -1,6 +1,6 @@
 import {  Component, OnInit, ViewChild  } from '@angular/core';
 import { SpeedService } from '../services/speed.service';
-import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { SpeedData } from '../home/home.page';
 
 
@@ -12,8 +12,10 @@ import { SpeedData } from '../home/home.page';
   styleUrls: ['./discover.page.scss'],
 })
 export class DiscoverPage implements OnInit {
-  map: google.maps.Map;
+
+
   markers = [];
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
 
 
@@ -72,11 +74,13 @@ updateMap(locations) {
       lat: loc.lat,
       lng: loc.lng,
     };
+
+
     const data = locations as SpeedData;
     const isdrive = (data.isdriving) ? 'Driving' : 'Boadring';
     this.markers.push({
       position: latLng,
-      options: { icon: (isdrive === 'Driving') ? '../assets/map/car_2.png' : '../assets/map/car_2.png'},
+      options: { icon: '../assets/map/car_1.png' },
     });
 
 

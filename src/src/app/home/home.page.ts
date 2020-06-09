@@ -52,6 +52,7 @@ export class HomePage implements OnInit {
   safety = 'SAFEST';
   risk = 0;
   numOverSpeed = 0;
+  speedval = 0;
 
 
 public canvasWidth = 300;
@@ -183,8 +184,8 @@ async Track(status, inputData) {
     const getData = location[0] as SpeedData;
     console.log(getData);
 
-    this.guage.needleValue = getData.convSpeed || 0;
-
+    this.guage.needleValue = getData.convSpeed;
+    this.speedval = getData.convSpeed;
     this.speedlmt = getData.speedLimit;
     this.guage.drawChart(true);
 

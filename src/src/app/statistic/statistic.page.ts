@@ -21,10 +21,10 @@ export class StatisticPage implements OnInit {
 
 
   ionViewDidEnter() {
-    const data = [2.5, 3.8, 5, 6.9, 6.9, 7.5, 10, 17];
+
     const speedData = [];
     const timeStamp = [];
-    const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+    this.speedService.getStatsData(this.section).subscribe(getdata => {
       const tomap = getdata as Array<SpeedData>;
 
       tomap.map( md => {
@@ -36,9 +36,9 @@ export class StatisticPage implements OnInit {
 
       } );
 
-      this.createBarChart(speedData, timeStamp);
+      
     }) ;
-
+    this.createBarChart(speedData, timeStamp);
   }
 
   createBarChart(dispaydata, label) {
@@ -95,10 +95,9 @@ export class StatisticPage implements OnInit {
     switch (this.section) {
       case 'day': {
 
-      const data = [2.5, 3.8, 5, 6.9, 6.9];
       const speedData = [];
       const timeStamp = [];
-      const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+      this.speedService.getStatsData(this.section).subscribe(getdata => {
         const tomap = getdata as Array<SpeedData>;
 
         tomap.map( md => {
@@ -109,15 +108,18 @@ export class StatisticPage implements OnInit {
           timeStamp.push(dtval);
 
         } );
-        this.createBarChart(speedData, timeStamp);
+
       }) ;
+
+      this.createBarChart(speedData, timeStamp);
+
       break;
       }
       case 'week': {
         const data = [2.5, 10, 15, 6.9, 9.9, 3.5, 8, 4];
         const speedData = [];
         const timeStamp = [];
-        const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+        this.speedService.getStatsData(this.section).subscribe(getdata => {
           const tomap = getdata as Array<SpeedData>;
 
           tomap.map( md => {
@@ -128,16 +130,16 @@ export class StatisticPage implements OnInit {
             timeStamp.push(dtval);
 
           } );
-          this.createBarChart(speedData, timeStamp);
-        }) ;
 
+        }) ;
+        this.createBarChart(speedData, timeStamp);
         break;
       }
       case 'month': {
         const data =  [5, 15, 15, 18, 9, 3, 2, 1];
         const speedData = [];
         const timeStamp = [];
-        const mdata = this.speedService.getStatsData(this.section).subscribe(getdata => {
+        this.speedService.getStatsData(this.section).subscribe(getdata => {
           const tomap = getdata as Array<SpeedData>;
 
           tomap.map( md => {
@@ -148,8 +150,9 @@ export class StatisticPage implements OnInit {
             timeStamp.push(dtval);
 
           } );
-          this.createBarChart(speedData, timeStamp);
+          
         }) ;
+        this.createBarChart(speedData, timeStamp);
         break;
       }
       default: {

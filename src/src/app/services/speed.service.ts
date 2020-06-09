@@ -99,7 +99,7 @@ latLngResult;
       this.weekStatsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
         ref => ref.orderBy('timestamp', 'desc')
-        .where('timestamp', '>', Math.floor(weekDay.getTime() / 1000))
+        .where('timestamp', '<', Math.floor(weekDay.getTime() / 1000))
         .limit(5)
       );
 
