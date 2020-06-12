@@ -1,0 +1,63 @@
+
+.custom-card-bg {
+
+  background-color: #5F4591;
+  text-align: center;
+  border-radius: 10%;
+  height: 100px;
+  width: 100;
+}
+
+ion-card-content {
+  margin: 10px;
+}
+
+
+ion-menu-button {
+  color: rgb(29, 29, 29);
+}
+
+
+.my-css-class {
+  background-color: rgb(65, 65, 65)!important;;
+  --border-radius: 0;
+  --box-shadow: 0;
+
+}
+
+
+.track-button {
+  position: absolute;
+  left: 78%;
+  bottom: 2%;
+  width: 60px;
+  height: 30px;
+}
+
+.speedometer{
+  width: fit-content;
+  height: fit-content;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+
+.speed-value {
+  font-size: 1em;
+  color: rgb(36, 36, 36);
+  top: 90px;
+  left: 35%;
+  right: 0;
+  position: absolute;
+}
+
+.speed-label {
+  font-size: 1em;
+  color: rgb(36, 36, 36);
+  top: 145px;
+  left: 47%;
+  right: 0;
+  font-size: xx-large;
+  position: absolute;
+}
