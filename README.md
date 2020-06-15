@@ -24,7 +24,9 @@ The APP seeks to address the problem statement 2 of Goal 3 of the SDG's.
 
 
 ## Usage
-The APP need have to be installed on user's phone. Currently is a web app and the link is https://team-203-transafe.web.app/. Opening the APP for the first time will take user through profile setup and phone verification. User can then click on the TRACK button just below lower right side of the speedometer, complete dialogue form and start tracking. The APP will require user to grant access to turn user's phone location on which is require for accurate monitoring of over speeding. The APP when installed will do among others the following
+The APP need have to be installed on user's phone. Currently is a web app and the link is https://transafe-a15f3.web.app/. Opening the APP for the first time will take user through profile setup and phone verification. User can then click on the TRACK button just below lower right side of the ]
+
+]speedometer, complete dialogue form and start tracking. The APP will require user to grant access to turn user's phone location on which is require for accurate monitoring of over speeding. The APP when installed will do among others the following
 1. Monitor and notify user of over speeding during travel
 2. Compute the percentage risk level of the user to road accidents based on the user's history of over speeding.
 3. Show graphical trend of user's over speeding history
@@ -45,7 +47,7 @@ This project uses NPM to manage software dependencies. NPM Relies on the package
 ```bash
 npm install
 ```
->_tip_: **npm i** is shorthand for **npm install**
+ **npm i** is shorthand for **npm install**
 
 
 ### Initializing Firebase for ionic web app
@@ -74,14 +76,6 @@ export const environment = {
 }
 
 ```
-### Initializing Firebase for capacitor android app
-Go to the firebase project and select the android app. Go to the settings and download the google-services.json file and paste in the android/app folder
-If you are interested in knowing more check this out ['Adding firebase credentials for android'](https://firebase.google.com/docs/android/setup)
-
-
-### Installing android studio
-Android studio ide helps to preview codes, debug and build capacitor android app
-Instructions for installing Android studio latest version can be found in the [Android studio download](https://developer.android.com/studio).
 
 
 ### Configuring capacitor for project
@@ -104,13 +98,6 @@ open your terminal and run:
 ionic build
 ```
 
-### Open ANDROID STUDIO IDE to build,run, and deploy 
-The native  Android project is opened in the standard IDE (Android Studio). Use the IDEs to run and deploy your app.
-open your terminal and run:
-```bash
-cd TranSafe
-npx cap open android
-```
 
 ### Syncing your app with capacitor
 Every time you perform a build (e.g. ionic build) that changes your web directory (default: www), you'll need to copy those changes down to your native project(android):
