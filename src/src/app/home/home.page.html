@@ -18,6 +18,7 @@
               [centralLabel]="centralLabel"
               [options]="options"></rg-gauge-chart>
               <ion-label class="speed-value">Speed Limit : <strong>{{speedlmt}}</strong></ion-label>
+              <ion-label class="speed-label"><strong>{{speedval}}</strong></ion-label>
               <ion-button color="primary" [ngClass]="{'my-css-class': updateBtnText === 'Stop'}"  class="track-button" (click)="startTrackUser()">{{updateBtnText}}</ion-button>
 
         </ion-card>
@@ -28,7 +29,7 @@
         <ion-card class="custom-card-bg">
           <ion-card-content>
             <ion-text color="light">
-              <h1>3</h1>
+              <h1>NO</h1>
               <p>Rating</p>
             </ion-text>
           </ion-card-content>

@@ -48,23 +48,24 @@ export class HomePage implements OnInit {
   isDriving;
   updateBtnText = 'Track';
   isBeginTrack = false;
-  speedlmt = 60;
+  speedlmt = 0;
   safety = 'SAFEST';
   risk = 0;
   numOverSpeed = 0;
+  speedval = 0;
 
 
 public canvasWidth = 300;
-public needleValue = 5;
+public needleValue = 0;
 public centralLabel = '';
 public options = {
     hasNeedle: true,
     needleColor: '#5e5e5e',
-    needleUpdateSpeed: 2000,
+    needleUpdateSpeed: 1000,
     arcColors: ['lightgray', '#5F4591' ],
     arcDelimiters: [70],
     rangeLabel: ['0 km/hr', '170 km/hr'],
-    needleStartValue: 10,
+    needleStartValue: 0,
     rangeLabelFontSize: 13,
 };
 
@@ -174,7 +175,7 @@ async Track(status, inputData) {
   const isdrive = (status === 'driving') ? true : false;
   this.speedService.startTracking(isdrive, inputData);
   this.speedService.initTrackUser();
-  this.guage.needleValue = 20;
+
 
 
   // get speed value and update
@@ -183,9 +184,8 @@ async Track(status, inputData) {
     const getData = location[0] as SpeedData;
     console.log(getData);
 
-    this.guage.needleValue = getData.convSpeed || 0;
-
-    this.guage.bottomLabel = `Current Speed: ${getData.convSpeed.toString()}`;
+    this.guage.needleValue = getData.convSpeed;
+    this.speedval = getData.convSpeed;
     this.speedlmt = getData.speedLimit;
     this.guage.drawChart(true);
 

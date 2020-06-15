@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 @Component({
   selector: 'app-homenav',
   templateUrl: './homenav.page.html',
@@ -8,11 +9,16 @@ import { Router } from '@angular/router';
 })
 export class HomenavPage implements OnInit {
 
+  // notif;
   constructor(private router: Router) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.router.navigateByUrl('homenav/home');
+
+    // const isnotification =  (await Storage.get({ key: 'notify' })).value;
+
+
   }
 
 

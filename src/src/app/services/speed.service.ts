@@ -99,7 +99,7 @@ latLngResult;
       this.weekStatsCollection = this.afs.collection(
         `speed/${user.uid}/track`,
         ref => ref.orderBy('timestamp', 'desc')
-        .where('timestamp', '>', Math.floor(weekDay.getTime() / 1000))
+        .where('timestamp', '<', Math.floor(weekDay.getTime() / 1000))
         .limit(5)
       );
 
@@ -286,7 +286,7 @@ async addNewLocation(vehicleNumber, isdriving, lat, lng, timestamp, speed, headi
 
   const speedLimit = this.searchRoadType(getName);
 
-  const convSpeed = (speed * 18) / 5;
+  const convSpeed = Math.floor((speed * 18) / 5);
   const overSpeed = (speedLimit < convSpeed) ? true : false ;
 
 
